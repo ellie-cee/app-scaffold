@@ -1,3 +1,5 @@
 
 **/ia_* merge=ours
 app/shopify-extensions merge=ours
+app/xyz/urls.py merge=ours
+app/home/templates merge=ours
