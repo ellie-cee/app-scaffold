@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     "localhost",
     os.environ.get("APP_NAME")
 ]
-FIELD_ENCRYPTION_KEY = os.environ.get('DJANGO_ENCRYPTION_KEY', '')
+FIELD_ENCRYPTION_KEY = os.environ.get('FIELD_ENCRYPTION_KEY', '')
 
 # Application definition
 
@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'encrypted_model_fields'
-]+[os.environ.get("DJANGO_APPS","").split(",")]
-print("ware that is middle")
+]+os.environ.get("DJANGO_APPS","").split(",")
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,13 +59,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'shopify_auth.middleware.LoginProtection',
     'shopify_auth.middleware.ShopifyEmbed'
-]+os.environ.get("DJANGO_MIDDLEWARE","").split(",")
+]
+
+if os.environ.get("DJANGO_MIDDLEWARE","")!="":
+    MIDDLEWARE = MIDDLEWARE+os.environ.get("DJANGO_MIDDLEWARE").split(",")
 
 ROOT_URLCONF = 'xyz.urls'
 
