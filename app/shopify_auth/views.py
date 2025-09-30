@@ -11,7 +11,7 @@ import shopify
 logger = logging.getLogger(__name__)
 
 def _new_session(shop_url):
-    api_version = apps.get_app_config('shopify_app').SHOPIFY_API_VERSION
+    api_version = apps.get_app_config('shopify_auth').SHOPIFY_API_VERSION
     return shopify.Session(shop_url, api_version)
 
 # Ask user for their ${shop}.myshopify.com address
@@ -29,7 +29,7 @@ def authenticate(request):
         messages.error(request, "A shop param is required")
         return redirect(reverse(login))
     
-    scope = apps.get_app_config('shopify_app').SHOPIFY_API_SCOPE
+    scope = apps.get_app_config('shopify_auth').SHOPIFY_API_SCOPE
     redirect_uri = request.build_absolute_uri(reverse(finalize))
     state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
     request.session['shopify_oauth_state_param'] = state
@@ -37,7 +37,7 @@ def authenticate(request):
     return redirect(permission_url)
 
 def finalize(request):
-    api_secret = apps.get_app_config('shopify_app').SHOPIFY_API_SECRET
+    api_secret = apps.get_app_config('shopify_auth').SHOPIFY_API_SECRET
     params = request.GET.dict()
         
     if request.session['shopify_oauth_state_param'] != params['state']:

@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
@@ -23,9 +24,7 @@ from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = i18n_patterns(
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    path('admin/', admin.site.urls),
-    path('filer/', include('filer.urls')),
-    path('', include('cms.urls')),
+    path('admin/', admin.site.urls)
 )
 
 

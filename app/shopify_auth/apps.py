@@ -3,7 +3,7 @@ import os
 
 
 class ShopifyAuthConfig(AppConfig):
-    name = 'shopify_app'
+    name = 'shopify_auth'
     # Replace the API Key and Shared Secret with the one given for your
     # App by Shopify.
     #

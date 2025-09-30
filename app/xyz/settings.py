@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'encrypted_model_fields'
 ]+[os.environ.get("DJANGO_APPS","").split(",")]
-
+print("ware that is middle")
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -153,7 +153,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 APPEND_SLASH = False
 
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+EMAIL_BACKEND = os.environ.get("DJANGO_EMAIL_BACKEND")
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_EMAIL")  # if you don't already have this in settings
 EMAIL_USE_TLS = True
