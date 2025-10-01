@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import string
 import sys
 import json
 from urllib.parse import urlparse
@@ -15,6 +14,7 @@ import argparse
 import secrets
 from passwordgenerator import pwgenerator
 from jinja2 import Environment, FileSystemLoader
+import base64
 
 
 
@@ -31,7 +31,7 @@ configDir = os.path.join(baseDir,"configs")
 #what
 
 env = Environment(loader=FileSystemLoader(configDir))
-
+allowEmpty = ["DJANGO_APPS","DJANGO_CONTEXT_PROCESSORS","DJANGO_MIDDLEWARE"]
 
 tmpdir = pathlib.Path(os.path.join(baseDir,"tmp"))
 if not tmpdir.exists():
@@ -57,6 +57,9 @@ def getValue(key=None,default=None,label=None,mustBe=[]):
         if inputValue == "":
             if default is not None and default!="":
                 value = default
+            elif key in allowEmpty:
+                value = inputValue
+                break
         elif len(mustBe)>0 and inputValue in mustBe:
             value = inputValue
         else:
@@ -81,7 +84,7 @@ if args.shopify:
     config = buildShopifyProfile(config)
 
 
-    
+
 readFilename = ".env"
 if not pathlib.Path(readFilename).exists():
     readFilename = "configs/env-default"
@@ -93,12 +96,15 @@ for line in open(readFilename).readlines():
     key = line[0:line.index("=")]
     
     value = line[line.index("=")+1:len(line)].strip()
-    if key in ["DB_PASSWORD","DJANGO_SECRET",""]:
+    if key in ["DB_PASSWORD","DJANGO_SECRET"]:
         if value is not None and value!="":
             config[key] = value
         else:
             config[key] = pwgenerator.generate()
+    elif key=="FIELD_ENCRYPTION_KEY":
+        config[key] = base64.urlsafe_b64encode(os.urandom(32)).decode('utf-8')
     else:
+        
         config[key] = getValue(key,default=value)
     
     

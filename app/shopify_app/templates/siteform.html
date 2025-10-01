@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content%}
+<style type="text/css">
+    button.requires-id {
+        display:none;
+    }
+    form:has(input[name="shopId"]) button.requires-id {
+        display:block;
+    }
+</style>
+<script src="/static/js/shops.js"></script>
+<div class="content-with-sidebar">
+    <div class="listing">
+        <ul class="sidebar-options">
+            {% for shop in shops %}
+                <li data-shop-id="{{ shop.id}}">
+                    <a href="shops?shopId={{ shop.id }}">{{ shop.shopName }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div><a href="/shops">New Shop</a></div>
+    </div>
+    <div class="jsapp"</div>
+</div>
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded",event=>{        
+    window.shopForm = new ShopifySite({
+        "objectId":"{{ request.GET.shopId }}"
+    });
+    // const 
+});
+    
+</script>
+{% endblock %}

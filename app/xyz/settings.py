@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'encrypted_model_fields'
+    'encrypted_model_fields',
+    'home',
+    'site_auth',
+    'shopify_app'
 ]+os.environ.get("DJANGO_APPS","").split(",")
 
 MIDDLEWARE = [
