@@ -14,7 +14,7 @@ def index(request):
 def test(request):
     return render(
         request,
-        "proxytest.html"
+        "proxy_test.html"
     )
 
 
