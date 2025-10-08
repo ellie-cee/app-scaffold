@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.conf import settings
 from django.core import serializers
-from shopify_app.models import ShopifySite
+from shopify_auth.models import ShopifySite
 from django.shortcuts import render,redirect
 import logging
 

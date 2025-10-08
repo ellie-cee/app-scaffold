@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import render
-from ywm_auth.decorators import requiresLogin
+from site_auth.decorators import requiresLogin
 from django.http import HttpResponse
 import json
 import logging
