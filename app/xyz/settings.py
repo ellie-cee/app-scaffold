@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'site_auth.apps.AuthConfig',
     'shopify_auth.apps.ShopifyAuthConfig',
+    "shopify_proxy.apps.ShopifyProxyConfig"
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
                 "home.context_procesors.sidebarNav",
-                "home.context_procesors.env"
+                "home.context_procesors.env",
+                "home.context_procesors.proxyDetails"
             ],
         },
     },
