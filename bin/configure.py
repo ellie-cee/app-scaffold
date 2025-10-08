@@ -14,6 +14,7 @@ import argparse
 import secrets
 from passwordgenerator import pwgenerator
 from jinja2 import Environment, FileSystemLoader
+import base64
 
 
 
@@ -57,7 +58,6 @@ def getValue(key=None,default=None,label=None,mustBe=[]):
             if default is not None and default!="":
                 value = default
             elif key in allowEmpty:
-                print("dewdewq")
                 value = inputValue
                 break
         elif len(mustBe)>0 and inputValue in mustBe:
@@ -96,12 +96,15 @@ for line in open(readFilename).readlines():
     key = line[0:line.index("=")]
     
     value = line[line.index("=")+1:len(line)].strip()
-    if key in ["DB_PASSWORD","DJANGO_SECRET","DJANGO_ENCRYPTION_KEY"]:
+    if key in ["DB_PASSWORD","DJANGO_SECRET"]:
         if value is not None and value!="":
             config[key] = value
         else:
             config[key] = pwgenerator.generate()
+    elif key=="FIELD_ENCRYPTION_KEY":
+        config[key] = base64.urlsafe_b64encode(os.urandom(32)).decode('utf-8')
     else:
+        
         config[key] = getValue(key,default=value)
     
     
