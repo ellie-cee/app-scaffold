@@ -26,6 +26,7 @@ from django.views.i18n import JavaScriptCatalog
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shopify/', include('shopify_auth.urls')),
+    path("shopify-proxy",include('shopify_proxy.urls')),
     path('',include('home.urls')),
     path('',include('site_auth.urls'))
  ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
