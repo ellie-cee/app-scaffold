@@ -13,7 +13,7 @@ utc = pytz.UTC
 # Create your models here.
 
 class UserPermissions(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,null=False)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255,db_index=True)
     
     def __str__(self):
@@ -24,7 +24,7 @@ class UserPermissions(models.Model):
 
 
 class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,null=False)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255,default="No Name")
     email = models.EmailField(db_index=True)
     permissions = models.ManyToManyField(UserPermissions)
@@ -82,7 +82,7 @@ class User(models.Model):
         db_table="ywm_user"
 
 class AuthRequest(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,null=False)
+    id = models.BigAutoField(primary_key=True)
     requestUser = models.ForeignKey(User,on_delete=models.CASCADE)
     code = models.CharField(max_length=64,db_index=True)
     expires = models.DateTimeField()

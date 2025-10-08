@@ -38,4 +38,4 @@ django-anymail="*"
 uwsgi = "*"
 Jinja2 = "*"
 passwordgenerator="*"
-django-encrypted-model-fields="*"
+

@@ -22,11 +22,15 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
 
-urlpatterns = i18n_patterns(
-    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    path('admin/', admin.site.urls)
-)
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('shopify/', include('shopify_auth.urls')),
+    path('',include('home.urls')),
+    path('',include('site_auth.urls'))
+ ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+print(urlpatterns)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

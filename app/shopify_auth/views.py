@@ -21,7 +21,7 @@ def login(request):
     if request.GET.get('shop'):
         return authenticate(request)
     
-    return render(request, 'shopify_auth/login.html', {})
+    return render(request, 'shopify_login.html', {})
 
 def authenticate(request):
     shop_url = request.GET.get('shop', request.POST.get('shop')).strip()

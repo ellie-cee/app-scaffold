@@ -5,7 +5,7 @@
     [Service]
     User=ywm
     Group=ywm
-    WorkingDirectory=/home/ellie/workspace/freelance/ywm_quickstart/app
+    WorkingDirectory=/var/www/{{project_slug}}/app
     ExecStart=/usr/local/bin/pipenv run uwsgi --ini uwsgi.ini
     Restart=always
 
