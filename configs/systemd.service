@@ -3,8 +3,8 @@
     After=network.target
 
     [Service]
-    User=ywm
-    Group=ywm
+    User={{ project_user }}
+    Group={{ project_group }}
     WorkingDirectory=/var/www/{{project_slug}}/app
     ExecStart=/usr/local/bin/pipenv run uwsgi --ini uwsgi.ini
     Restart=always

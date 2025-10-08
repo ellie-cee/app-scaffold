@@ -275,7 +275,7 @@ form.jsform:has(input[name="objectId"]) {
 
 
 .sidebar {
-  background-color: #ffffdd;
+  background-color: #c1ffff;
   min-width: 200px;
   padding: 0px;
   display: flex;
