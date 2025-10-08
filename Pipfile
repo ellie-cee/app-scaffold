@@ -38,4 +38,5 @@ django-anymail="*"
 uwsgi = "*"
 Jinja2 = "*"
 passwordgenerator="*"
-
+hmac="*"
+hashlib="*"

@@ -5,11 +5,15 @@ from django.http import HttpResponse
 import json
 import logging
 from django.conf import settings
+from django.template import RequestContext
+
 
 logger = logging.Logger(__name__)
 
 
 # Create your views here.
+
+
 
 @requiresLogin
 def dashboard(request):
@@ -34,3 +38,7 @@ def jsonResponse(payload,status=200):
     )
 def getJsonPayload(request):
     return json.loads(request.body.decode("utf-8"))
+
+def getProxyDetails(request):
+    rc = RequestContext(request)
+    rc.get('proxyDetails')
