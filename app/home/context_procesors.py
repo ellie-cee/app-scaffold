@@ -17,6 +17,7 @@ def env(request):
     return {
         "env":dict(os.environ)
     }
+    
 def proxyDetails(request):
     return {
         "shopName":request.GET.get("shop"),

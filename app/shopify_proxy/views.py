@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.template import RequestContext
-from .decorators import validProxy
 
 
 # Create your views here.
@@ -11,6 +10,7 @@ def index(request):
         "proxy.html",
         {}
     )
+    
 def test(request):
     return render(
         request,
