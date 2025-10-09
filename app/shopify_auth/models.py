@@ -51,7 +51,7 @@ class ShopifySite(models.Model):
                 self.accessToken
             )
         )
-    def validCredentials(self):
+    def validateCredentials(self):
         self.startSession()
         shop = GraphQL().run(
             """
@@ -72,6 +72,7 @@ class ShopifySite(models.Model):
             return False
         self.contactEmail = shop.search("data.shop.contactEmail")
         self.contactName = shop.search("data.shop.shopOwnerName")
+        self.shopName = shop.search("data.shop.name")
         self.shopUrl = shop.search("data.shop.url")
         return True
         
