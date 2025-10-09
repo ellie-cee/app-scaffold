@@ -14,7 +14,7 @@ def validProxy(fn):
         details =  {
             "shopName":request.GET.get("shop"),
             "customerId":request.GET.get("logged_in_customer_id"),
-            "signature":request.get("signature")
+            "signature":request.GET.get("signature")
         }
         print(details)
         if details is None or details.get("shop") is None:
