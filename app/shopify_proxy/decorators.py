@@ -17,7 +17,8 @@ def validProxy(fn):
             "customerId":request.GET.get("logged_in_customer_id"),
             "signature":request.GET.get("signature")
         }
-        if details is None or details.get("shop") is None:
+        print(details)
+        if details is None or details.get("shopName") is None:
             return render(
                 request,
                 "proxy_fail.html",
@@ -28,14 +29,16 @@ def validProxy(fn):
             if not shopifySite.validateSignature(details.get("signature")):
                 return render(
                    request,
-                    "proxy_fail.html"
+                    "proxy_fail.html",
+                    content_type="application/liquid"
                 )
         except:
             traceback.print_exc()
             print("fayle")
             return render(
                    request,
-                    "proxy_fail.html"
+                    "proxy_fail.html",
+                    content_type="application/liquid"
                 )                             
         return fn(request, *args, **kwargs)
     wrapper.__name__ = fn.__name__
