@@ -8,11 +8,10 @@ logger = Logger(__name__)
 # Create your views here.
 
 def index(request):
-    logger.error()
     return render(
         request,
         "proxy.html",
-        {}
+        "application/liquid"
     )
     
 @validProxy
@@ -24,3 +23,6 @@ def test(request):
     )
 
 
+def getProxyDetails(request):
+    rc = RequestContext(request)
+    rc.get('proxyDetails')
