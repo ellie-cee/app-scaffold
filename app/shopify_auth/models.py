@@ -27,11 +27,15 @@ class ShopifySite(models.Model):
         if signature is None:
             return False
         secret = os.environ.get("SHOPIFY_APP_SECRET")
+        print(secret)
+        print(signature)
         line = '&'.join([
             '%s=%s' % (key, value)
             for key, value in sorted(params.items())
         ])
+        print(line)
         h = hmac.new(secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
+        print(h.hexdigest())
         if hmac.compare_digest(h.hexdigest(), signature) == False:
             return False
         return True
