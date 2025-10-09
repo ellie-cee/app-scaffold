@@ -41,7 +41,7 @@ def authenticate(request):
     return redirect(permission_url)
 
 def finalize(request):
-    api_secret = apps.get_app_config('shopify_auth').SHOPIFY_API_SECRET
+    api_secret = os.environ.get("SHOPIFY_API_SECRET") #apps.get_app_config('shopify_auth').SHOPIFY_API_SECRET
     params = request.GET.dict()
         
     if request.session['shopify_oauth_state_param'] != params['state']:
@@ -57,7 +57,7 @@ def finalize(request):
     ])
     h = hmac.new(api_secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
     if hmac.compare_digest(h.hexdigest(), myhmac) == False:
-        messages.error(request, "Could not verify a secure login")
+        logger.error(request, "Could not verify a secure login")
         return redirect(reverse(login))
 
     try:
