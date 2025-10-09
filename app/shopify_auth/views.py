@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 
 def _new_session(shop_url):
     api_version = apps.get_app_config('shopify_auth').SHOPIFY_API_VERSION
-    return shopify.Session(shop_url, api_version)
+    session = shopify.Session(shop_url, api_version)
+    session.api_key = os.environ.get("SHOPIFY_API_KEY")
+    return session
 
 # Ask user for their ${shop}.myshopify.com address
 def login(request):
