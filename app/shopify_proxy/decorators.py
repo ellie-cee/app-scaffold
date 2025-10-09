@@ -5,7 +5,6 @@ from django.conf import settings
 from django.core import serializers
 from shopify_auth.models import ShopifySite
 from django.shortcuts import render,redirect
-from .views import getProxyDetails
 import logging
 
 logger = logging.Logger(__name__)
