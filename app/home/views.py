@@ -41,7 +41,8 @@ def getJsonPayload(request):
     return json.loads(request.body.decode("utf-8"))
 
 def install(request):
-    shopifySite,created = ShopifySite.objects.get_or_create(shopurl=request.session["shopify"].get("shop_url"))
+    shopifySite,created = ShopifySite.objects.get_or_create(shopUrl=request.session["shopify"].get("shop_url"))
+    
     shopifySite.accessToken = request.session["shopify"].get("access_token")
     shopifySite.save()
     return redirect("/")
