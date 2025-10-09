@@ -46,6 +46,7 @@ def finalize(request):
     params = request.GET.dict()
     
     logger.error(params)
+    logger.error(f"\n\n{api_secret}\n\n")
         
     if request.session['shopify_oauth_state_param'] != params['state']:
         logger.error('Anti-forgery state token does not match the initial request.')
