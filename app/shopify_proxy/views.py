@@ -1,16 +1,21 @@
 from django.shortcuts import render
 from django.template import RequestContext
+from .decorators import validProxy
+from logging import Logger
 
+logger = Logger(__name__)
 
 # Create your views here.
 
 def index(request):
+    logger.error()
     return render(
         request,
         "proxy.html",
         {}
     )
     
+@validProxy
 def test(request):
     return render(
         request,
