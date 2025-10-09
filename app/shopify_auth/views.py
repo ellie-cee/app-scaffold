@@ -45,7 +45,7 @@ def finalize(request):
     params = request.GET.dict()
         
     if request.session['shopify_oauth_state_param'] != params['state']:
-        logger.error(request, 'Anti-forgery state token does not match the initial request.')
+        logger.error('Anti-forgery state token does not match the initial request.')
         return redirect(reverse(login))
     else:
         request.session.pop('shopify_oauth_state_param', None)
@@ -57,7 +57,7 @@ def finalize(request):
     ])
     h = hmac.new(api_secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
     if hmac.compare_digest(h.hexdigest(), myhmac) == False:
-        logger.error(request, "Could not verify a secure login")
+        logger.error("Could not verify a secure login")
         return redirect(reverse(login))
 
     try:
