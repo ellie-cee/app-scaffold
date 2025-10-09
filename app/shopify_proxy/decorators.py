@@ -17,12 +17,12 @@ def validProxy(fn):
             "customerId":request.GET.get("logged_in_customer_id"),
             "signature":request.GET.get("signature")
         }
-        print(details)
+        contentType = "text/html" if details.get("signature") is None else "application/liquid"
         if details is None or details.get("shopDomain") is None:
             return render(
                 request,
                 "proxy_fail.html",
-                content_type="application/liquid"
+                content_type=contentType
             )
         try:
             
@@ -30,7 +30,7 @@ def validProxy(fn):
                 return render(
                    request,
                     "proxy_fail.html",
-                    content_type="application/liquid"
+                    content_type=contentType
                 )
         except:
             traceback.print_exc()
@@ -38,7 +38,7 @@ def validProxy(fn):
             return render(
                    request,
                     "proxy_fail.html",
-                    content_type="application/liquid"
+                    content_type=contentType
                 )                             
         return fn(request, *args, **kwargs)
     wrapper.__name__ = fn.__name__
