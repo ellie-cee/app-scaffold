@@ -4,6 +4,7 @@ import hashlib, base64, hmac
 from .graphql import GraphQL
 import shopify
 import sys
+import hmac,hashlib
 # Create your models here.
 
 class ShopifySite(models.Model):
@@ -19,10 +20,11 @@ class ShopifySite(models.Model):
     def __str__(self):
         return self.shopName
     
-    def validateSignature(self,request):
+    @staticmethod
+    def validateSignature(request):
         params = request.GET.dict()
-        hmac = params.pop('signature')
-        if hmac is None:
+        signature = params.pop('signature')
+        if signature is None:
             return False
         secret = os.environ.get("SHOPIFY_APP_SECRET")
         line = '&'.join([
@@ -30,7 +32,7 @@ class ShopifySite(models.Model):
             for key, value in sorted(params.items())
         ])
         h = hmac.new(secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
-        if hmac.compare_digest(h.hexdigest(), hmac) == False:
+        if hmac.compare_digest(h.hexdigest(), signature) == False:
             return False
         return True
     

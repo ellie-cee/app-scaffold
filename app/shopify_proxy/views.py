@@ -14,7 +14,8 @@ def index(request):
 def test(request):
     return render(
         request,
-        "proxy_test.html"
+        "proxy_test.html",
+        content_type="application/liquid"
     )
 
 
