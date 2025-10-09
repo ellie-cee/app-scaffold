@@ -45,7 +45,7 @@ def finalize(request):
     params = request.GET.dict()
         
     if request.session['shopify_oauth_state_param'] != params['state']:
-        messages.error(request, 'Anti-forgery state token does not match the initial request.')
+        logger.error(request, 'Anti-forgery state token does not match the initial request.')
         return redirect(reverse(login))
     else:
         request.session.pop('shopify_oauth_state_param', None)
