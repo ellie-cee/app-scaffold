@@ -30,7 +30,7 @@ class ShopifySite(models.Model):
         secret = os.environ.get("SHOPIFY_API_SECRET")
         print(secret)
         print(signature)
-        line = '&'.join([
+        line = ''.join([
             '%s=%s' % (key, value)
             for key, value in sorted(params.items())
         ])
