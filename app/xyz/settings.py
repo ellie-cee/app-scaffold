@@ -56,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'shopify_auth.middleware.LoginProtection',
+    'shopify_auth.middleware.ShopifyEmbed'
 ]
 
 ROOT_URLCONF = 'xyz.urls'
