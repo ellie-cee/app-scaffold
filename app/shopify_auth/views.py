@@ -16,6 +16,7 @@ def _new_session(shop_url):
     api_version = apps.get_app_config('shopify_auth').SHOPIFY_API_VERSION
     session = shopify.Session(shop_url, api_version)
     session.api_key = os.environ.get("SHOPIFY_API_KEY")
+    session.secret = os.environ.get("SHOPIFY_API_SECRET")
     return session
 
 # Ask user for their ${shop}.myshopify.com address
