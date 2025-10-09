@@ -24,6 +24,3 @@ def test(request):
     )
 
 
-def getProxyDetails(request):
-    rc = RequestContext(request)
-    rc.get('proxyDetails')

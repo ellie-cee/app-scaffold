@@ -12,7 +12,12 @@ logger = logging.Logger(__name__)
 
 def validProxy(fn):
     def wrapper(request, *args, **kwargs):
-        details = getProxyDetails(request)
+        details =  {
+            "shopName":request.GET.get("shop"),
+            "customerId":request.GET.get("logged_in_customer_id"),
+            "signature":request.get("signature")
+        }
+        print(details)
         if details is None or details.get("shop") is None:
             return render(
                 request,
