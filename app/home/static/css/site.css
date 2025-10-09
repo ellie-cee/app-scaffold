@@ -48,11 +48,11 @@ body {
     src: url('/static/css/SUPERGROTESKWEB-W03-REGULAR.woff') format('woff');
 }
 
-.header {
+.xyz-header {
     background-color: #008B8B;
     padding: 12px;
 }
-.header .header-img img {
+.xyz-header .header-img img {
     height:64px;
 }
 .body {
