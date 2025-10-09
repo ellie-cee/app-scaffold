@@ -23,7 +23,7 @@ def dashboard(request):
     logger.error(settings.STATIC_ROOT)
     return render(
         request,
-        "dashboard.html",
+        "index.html",
         {}
     )
 def logJson(payload):
