@@ -20,8 +20,8 @@ class ShopifySite(models.Model):
     def __str__(self):
         return self.shopName
     
-    
-    def validateSignature(self,request):
+    @staticmethod
+    def validateSignature(request):
         params = request.GET.dict()
         signature = params.pop('signature')
         print(params)

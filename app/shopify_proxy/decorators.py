@@ -25,8 +25,8 @@ def validProxy(fn):
                 content_type="application/liquid"
             )
         try:
-            shopifySite = ShopifySite.objects.get(shopDomain=details.get("shopDomain"))
-            if not shopifySite.validateSignature(details.get("signature")):
+            
+            if not ShopifySite.validateSignature(request):
                 return render(
                    request,
                     "proxy_fail.html",
