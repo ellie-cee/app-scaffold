@@ -67,6 +67,7 @@ def finalize(request):
     try:
         shop_url = params['shop']
         session = _new_session(shop_url)
+        logger.error(f"\n\n{session.secret}\n\n")
         request.session['shopify'] = {
             "shop_url": shop_url,
             "access_token": session.request_token(request.GET)
