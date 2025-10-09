@@ -12,7 +12,7 @@ class ShopifySite(models.Model):
     shopDomain = models.CharField(max_length=64)
     appKey = models.CharField(max_length=64)
     accessToken = models.CharField(max_length=255)
-    shopifyUrl = models.CharField(max_length=255)
+    shopifyUrl = models.CharField(max_length=255,default="")
     
     def __str__(self):
         return self.shopName
