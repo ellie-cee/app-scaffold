@@ -23,5 +23,7 @@ class SiteNav(models.Model,IdAware):
     def __str__(self):
         return self.url
     
+    
+    
     class Meta:
         db_table="sitenav"

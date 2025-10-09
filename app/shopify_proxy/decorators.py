@@ -30,7 +30,8 @@ def validProxy(fn):
                     "proxy_fail.html"
                 )
         except:
-             return render(
+            print("fayle")
+            return render(
                    request,
                     "proxy_fail.html"
                 )                             
