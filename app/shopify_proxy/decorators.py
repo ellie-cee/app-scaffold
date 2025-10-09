@@ -13,19 +13,19 @@ logger = logging.Logger(__name__)
 def validProxy(fn):
     def wrapper(request, *args, **kwargs):
         details =  {
-            "shopName":request.GET.get("shop"),
+            "shopDomain":request.GET.get("shop"),
             "customerId":request.GET.get("logged_in_customer_id"),
             "signature":request.GET.get("signature")
         }
         print(details)
-        if details is None or details.get("shopName") is None:
+        if details is None or details.get("shopDomain") is None:
             return render(
                 request,
                 "proxy_fail.html",
                 content_type="application/liquid"
             )
         try:
-            shopifySite = ShopifySite.objects.get(shopName=details.get("shop"))
+            shopifySite = ShopifySite.objects.get(shopDomain=details.get("shopDomain"))
             if not shopifySite.validateSignature(details.get("signature")):
                 return render(
                    request,
