@@ -11,7 +11,7 @@ def index(request):
     return render(
         request,
         "proxy.html",
-        "application/liquid"
+        content_type="application/liquid"
     )
     
 @validProxy
