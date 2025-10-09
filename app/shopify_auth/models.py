@@ -48,7 +48,7 @@ class ShopifySite(models.Model):
             shopify.Session(
                 f"{self.shopDomain}.myshopify.com/admin",
                 os.environ.get("API_VERSION"),
-                self.authToken
+                self.accessToken
             )
         )
     def validCredentials(self):
