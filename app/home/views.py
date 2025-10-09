@@ -16,7 +16,7 @@ logger = logging.Logger(__name__)
 
 
 
-@requiresLogin
+
 def dashboard(request):
     logger.error(__debug__)
     logger.error(settings.DEBUG)

@@ -13,6 +13,8 @@ class ShopifySite(models.Model):
     appKey = models.CharField(max_length=64)
     accessToken = models.CharField(max_length=255)
     shopifyUrl = models.CharField(max_length=255,default="")
+    contactName = models.CharField(max_length=255,default="")
+    contactEmail = models.CharField(max_length=255,default="")
     
     def __str__(self):
         return self.shopName
