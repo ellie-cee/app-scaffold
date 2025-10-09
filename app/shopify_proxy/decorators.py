@@ -1,4 +1,5 @@
 import os
+import traceback
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.conf import settings
@@ -19,7 +20,8 @@ def validProxy(fn):
         if details is None or details.get("shop") is None:
             return render(
                 request,
-                "proxy_fail.html"
+                "proxy_fail.html",
+                content_type="application/liquid"
             )
         try:
             shopifySite = ShopifySite.objects.get(shopName=details.get("shop"))
@@ -29,6 +31,7 @@ def validProxy(fn):
                     "proxy_fail.html"
                 )
         except:
+            traceback.print_exc()
             print("fayle")
             return render(
                    request,
