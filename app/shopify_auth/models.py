@@ -24,9 +24,10 @@ class ShopifySite(models.Model):
     def validateSignature(self,request):
         params = request.GET.dict()
         signature = params.pop('signature')
+        print(params)
         if signature is None:
             return False
-        secret = os.environ.get("SHOPIFY_APP_SECRET")
+        secret = os.environ.get("SHOPIFY_API_SECRET")
         print(secret)
         print(signature)
         line = '&'.join([
