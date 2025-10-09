@@ -1,7 +1,8 @@
 import os
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from site_auth.decorators import requiresLogin
 from django.http import HttpResponse
+from shopify_auth.models import ShopifySite
 import json
 import logging
 from django.conf import settings
@@ -39,6 +40,10 @@ def jsonResponse(payload,status=200):
 def getJsonPayload(request):
     return json.loads(request.body.decode("utf-8"))
 
-def getProxyDetails(request):
-    rc = RequestContext(request)
-    rc.get('proxyDetails')
+def install(request):
+    shopifySite,created = ShopifySite.objects.get_or_create(shopurl=request.session["shopify"].get("shop_url"))
+    shopifySite.accessToken = request.session["shopify"].get("access_token")
+    shopifySite.save()
+    return redirect("/")
+                                                                                    
+

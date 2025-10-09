@@ -1,4 +1,5 @@
 import json
+import traceback
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
@@ -8,7 +9,8 @@ import hmac, base64, hashlib, binascii, os
 import logging
 import shopify
 
-logger = logging.getLogger(__name__)
+logger = logging.Logger(__name__)
+
 
 def _new_session(shop_url):
     api_version = apps.get_app_config('shopify_auth').SHOPIFY_API_VERSION
@@ -67,8 +69,9 @@ def finalize(request):
         }
         
             
-    except Exception:
-        messages.error(request, "Could not log in to Shopify store.")
+    except Exception as e:
+        traceback.print_exc()
+        logger.error("Could not log in to Shopify store.")
         return redirect(reverse(login))
     
     messages.info(request, "Logged in to shopify store.")

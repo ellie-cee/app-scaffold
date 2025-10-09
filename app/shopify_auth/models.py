@@ -25,7 +25,7 @@ class ShopifySite(models.Model):
             for key, value in sorted(params.items())
         ])
         h = hmac.new(secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
-        if hmac.compare_digest(h.hexdigest(), hhmac) == False:
+        if hmac.compare_digest(h.hexdigest(), hmac) == False:
             return False
         return True
     
