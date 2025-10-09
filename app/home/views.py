@@ -43,7 +43,7 @@ def getJsonPayload(request):
 def install(request):
     shopifySite,created = ShopifySite.objects.get_or_create(shopDomain=request.session["shopify"].get("shop_url"))
     shopifySite.accessToken = request.session["shopify"].get("access_token")
-    details = shopifySite.validCredentials()
+    details = shopifySite.shopDetails()
     shopifySite.save()
     return redirect("/")
                                                                                     
