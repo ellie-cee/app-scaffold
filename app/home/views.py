@@ -51,9 +51,8 @@ def install(request):
     return redirect("/")
 
 def testEmail(request):
-    print(settings.EMAIL_HOST_USER,settings.EMAIL_PORT,settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
     msg = EmailMultiAlternatives(
-        "Your YWM Login Code",
+        "Hello from Ellie",
         render_to_string(
             "email.txt",
             {

@@ -154,27 +154,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 APPEND_SLASH = False
 
 
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND","django.core.mail.backends.smtp.EmailBackend")
+EMAIL_BACKEND = os.environ.get("DJANGO_EMAIL_BACKEND","django.core.mail.backends.smtp.EmailBackend")
+print(EMAIL_BACKEND)
 #EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #M_EMAIL = os.environ.get("DEFAULT_EMAIL")  # if you don't already have this in settings
 
 
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
 EMAIL_PORT = 25
 EMAIL_HOST_USER = os.environ.get("DEFAULT_EMAIL")
-EMAIL_PORT=os.environ.get("EMAIL_PORT")
-EMAIL_HOST_USER =  os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-print(EMAIL_HOST_USER,EMAIL_PORT,EMAIL_HOST_USER,EMAIL_HOST_PASSWORD)
 
 #EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 #SERVER_EMAIL = f"apps@{os.environ.get('MAIL_DOMAIN')}"  # ditto (default from-email for Django errors)
 ANYMAIL = {
    # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
-    "MAILGUN_SENDER_DOMAIN": os.environ.get('MAIL_DOMAIN'),  # your Mailgun domain, if needed
+    "BREVO_API_KEY": os.environ.get("DJANGO_EMAIL_API_KEY"),
+    "BREVO_API_URL":"https://api.brevo.com/v3/",
+    "SENDINBLUE_API_KEY":os.environ.get("DJANGO_EMAIL_API_KEY"),
+    "ANYMAIL_SENDINBLUE_API_KEY":os.environ.get("DJANGO_EMAIL_API_KEY"),
+    
+      # your Mailgun domain, if needed
 }
+print(ANYMAIL["SENDINBLUE_API_KEY"])
 
 LOGGING = {
     'version': 1,
