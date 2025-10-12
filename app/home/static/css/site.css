@@ -524,5 +524,11 @@ a {
   }
 }
 
+.proxy-content {
+  width:75%;
+  margin: auto;
+  margin-top:32px;
+  margin-bottom: 32px;
+}
 
 /* poop */
