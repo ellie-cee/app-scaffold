@@ -529,6 +529,8 @@ a {
   margin: auto;
   margin-top:32px;
   margin-bottom: 32px;
+  padding:32px;
+  font-size: 18px;
 }
 
 /* poop */
