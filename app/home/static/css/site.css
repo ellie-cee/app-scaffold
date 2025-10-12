@@ -61,7 +61,6 @@ body {
     align-items: flex-start;
     font-family: 'Super Grotesk';
     height: max-content;
-    border:1px solid #000;
     height: 100%;
 }
 .main-content {
