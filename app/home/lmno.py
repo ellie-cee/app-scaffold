@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import traceback
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -96,6 +97,7 @@ class SearchableDict:
                 logger.info(ret)
                 
 def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",sender=os.environ.get("DEFAULT_EMAIL")) ->EmailStatus:
+    context["year"] = datetime.now().year
     msg = EmailMultiAlternatives(
         subject,
         render_to_string(

@@ -9,7 +9,7 @@ import logging
 from django.conf import settings
 from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
-from .mn import EmailStatus,sendEmail
+from .lmno import EmailStatus,sendEmail
 
 
 logger = logging.Logger(__name__)
@@ -54,14 +54,15 @@ def testEmail(request):
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
         subject="hey now",
-        context={"content":"butts lol"},
-        sender="ellie@elliecee.xyz"
+        context={"message":"butts lol"},
+        sender="ellie@elliecee.xyz",
+        templatePrefix="2fa"
     )
     print(result)
     return render(
         request,
         "test.html",
-        {"content":{"message":result.message}}
+        {"message":result.message}
     )
                                                                                     
 
