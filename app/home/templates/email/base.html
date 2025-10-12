@@ -1,18 +1,27 @@
 <html>
     <head>
-        <title>{{ env.APP_NAME }}: {% block title %} Dashboard{% endblock %} </title>
-        <link rel="stylesheet" href="//abc.apps.elliecee.xyz/static/css/site.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-        <script src="/static/js/site.js"></script>
+        <style type="text/css">
+            .xyz-header {
+                background-color: #008B8B;
+                padding: 12px;
+            }
+            .xyz-header .header-img img {
+                height:64px;
+            }
+        </style>
     </head>
-    <body>
-        {% include "csrf_token.html" %}
-        <div class="xyz-header">
-            <div class="header-img"><img src="/static/img/logo.svg"></div>
-        </div>
+<body>
+    <div class="xyz-header">
+    </div>
     <div class="body">
-
-        <svg
+        <div class="main-content">
+                {% block content %}
+                sup
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <svg
    width="33.866665mm"
    height="33.866665mm"
    viewBox="0 0 33.866665 33.866665"
@@ -53,20 +62,5 @@
          d="m 88.584092,102.87891 0.07553,-1.42665 -3.289695,0.33568 0.28533,4.09534 2.802955,0.22658 0.05035,-1.21685 h -1.065795 l -0.03357,0.31051 -0.696543,-0.0588 v -2.70225 l 0.923129,0.0252 -0.04196,0.41121 z"
          style="font-family:Jagged-World;-inkscape-font-specification:Jagged-World"
          id="path2450" /></g></g></svg>
-        
-        <div class="sidebar">
-            {% block sidebar %}
-            {% endblock %}
-            {% if request.session.userDetails %}
-                {% include "sitenav.html" %}
-            {% endif %}    
-        </div>
-        <div class="main-content">
-            {% block content %}
-            sup
-            {% endblock %}
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    </body>
+</body>
 </html>

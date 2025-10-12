@@ -9,7 +9,7 @@ import signal
 import http.client
 import sys
 logger = logging.getLogger(__name__)
-from home.shared import SearchableDict
+from home.mn import SearchableDict
 
 
 class GqlReturn(SearchableDict):

@@ -9,7 +9,7 @@ import logging
 from django.conf import settings
 from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
-from xyz import settings
+from .mn import EmailStatus,sendEmail
 
 
 logger = logging.Logger(__name__)
@@ -21,9 +21,8 @@ logger = logging.Logger(__name__)
 
 
 def dashboard(request):
-    logger.error(__debug__)
-    logger.error(settings.DEBUG)
-    logger.error(settings.STATIC_ROOT)
+    
+    print(request.session.get("dewqdewq"))
     return render(
         request,
         "index.html",
@@ -51,30 +50,18 @@ def install(request):
     return redirect("/")
 
 def testEmail(request):
-    msg = EmailMultiAlternatives(
-        "Hello from Ellie",
-        render_to_string(
-            "email.txt",
-            {
-                "text":"ewqfefeq"
-            }
-        ),
-        os.environ.get("DEFAULT_EMAIL"),
-        ["cassadyeleanor@gmail.com"],
+    
+    result:EmailStatus = sendEmail(
+        recipient="cassadyeleanor@gmail.com",
+        subject="hey now",
+        context={"content":"butts lol"},
+        sender="ellie@elliecee.xyz"
     )
-    msg.attach_alternative(
-        render_to_string(
-            "email.html",
-            {
-                "text":"ewqfefeq"
-            }
-        ),
-        "text/html"
-    )
-    msg.send()
+    print(result)
     return render(
         request,
-        "test.html"
+        "test.html",
+        {"content":{"message":result.message}}
     )
                                                                                     
 

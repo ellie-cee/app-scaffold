@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django_redis',
     'home.apps.HomeConfig',
     'site_auth.apps.AuthConfig',
     'shopify_auth.apps.ShopifyAuthConfig',
@@ -59,6 +60,17 @@ MIDDLEWARE = [
     'shopify_auth.middleware.LoginProtection',
     'shopify_auth.middleware.ShopifyEmbed'
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # Replace with your Redis URL
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", # Optional compression
+        }
+    }
+}
 
 ROOT_URLCONF = 'xyz.urls'
 
@@ -81,7 +93,11 @@ TEMPLATES = [
     },
 ]
 
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+#SESSION_CACHE_ALIAS = "default"
+
 WSGI_APPLICATION = 'xyz.wsgi.application'
+
 
 
 # Database
@@ -129,7 +145,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_TZ = True
 
@@ -155,7 +171,6 @@ APPEND_SLASH = False
 
 
 EMAIL_BACKEND = os.environ.get("DJANGO_EMAIL_BACKEND","django.core.mail.backends.smtp.EmailBackend")
-print(EMAIL_BACKEND)
 #EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #M_EMAIL = os.environ.get("DEFAULT_EMAIL")  # if you don't already have this in settings
@@ -176,7 +191,6 @@ ANYMAIL = {
     
       # your Mailgun domain, if needed
 }
-print(ANYMAIL["SENDINBLUE_API_KEY"])
 
 LOGGING = {
     'version': 1,
@@ -215,12 +229,12 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'ywm_qs': { # Replace 'your_app_name' with your actual app name
+        'xyz': { # Replace 'your_app_name' with your actual app name
             'handlers': ['console', 'file'],
             'level': 'ERROR',
             'propagate': False, # Set to False to prevent messages from propagating to parent loggers
         },
-         'ywm_qs': { # Replace 'your_app_name' with your actual app name
+         'xyz': { # Replace 'your_app_name' with your actual app name
             'handlers': ['console', 'file'],
             'level': 'ERROR',
             'propagate': False, # Set to False to prevent messages from propagating to parent loggers

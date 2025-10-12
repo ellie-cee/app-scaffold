@@ -1,10 +1,22 @@
+import os
 import sys
 from jmespath import search as jpath
 import json
 from dict_recursive_update import recursive_update
 import logging
+from django.template import RequestContext
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+import traceback
+
 
 logger = logging.getLogger(__name__)
+
+class EmailStatus:
+    def __init__(self,success=True,message="succeeded"):
+        self.success = success
+        self.message = message
+        
 
 
 class SearchableDict:
@@ -82,3 +94,27 @@ class SearchableDict:
                 
             else:
                 logger.info(ret)
+                
+def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",sender=os.environ.get("DEFAULT_EMAIL")) ->EmailStatus:
+    msg = EmailMultiAlternatives(
+        subject,
+        render_to_string(
+            f"email/{templatePrefix}.txt",
+            context
+        ),
+        sender,
+        [recipient],
+    )
+    msg.attach_alternative(
+        render_to_string(
+            f"email/{templatePrefix}.html",
+            context
+        ),
+        "text/html"
+    )
+    try:
+        msg.send()
+        return EmailStatus()
+    except:
+        return EmailStatus(False,traceback.format_exc())
+    
