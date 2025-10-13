@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block customCSS %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/appointments-user-details.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="//{{env.APP_HOST}}/css/appointments-user-details.css"/>
 {% endblock %}
 {% block title %}
     {% translate 'Client Information' %} - {{ ar.get_service_name }}

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block customCSS %}
-    <link rel="stylesheet" href="{% static 'css/verification_code.css' %}">
+    <link rel="stylesheet" href="//{{env.APP_HOST}}/css/verification_code.css">
 {% endblock %}
 
 {% block title %}{% trans 'Enter Verification Code' %}{% endblock %}

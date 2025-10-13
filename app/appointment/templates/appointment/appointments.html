@@ -2,8 +2,8 @@
 {% load i18n %}
 {% load static %}
 {% block customCSS %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/appt-common.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/appointments.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="//{{env.APP_HOST}}/css/appt-common.css"/>
+    <link rel="stylesheet" type="text/css" href="//{{env.APP_HOST}}/css/appointments.css"/>
 {% endblock %}
 <!--
 {% block title %}
@@ -128,6 +128,6 @@
         const previousMonthBtnText = "{% trans 'Previous month' %}";
         const nextAvailableDateTxt = "{% trans 'Next available date' %}";
     </script>
-    <script src="{% static 'js/appointments.js' %}"></script>
-    <script src="{% static 'js/js-utils.js' %}"></script>
+    <script src="//{{env.APP_HOST}}/js/appointments.js"></script>
+    <script src="//{{env.APP_HOST}}/js/js-utils.js"></script>
 {% endblock %}
