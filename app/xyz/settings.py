@@ -32,7 +32,7 @@ DEBUG = os.environ.get("DEBUG_MODE")=="true"
 ALLOWED_HOSTS = [os.getenv("APP_HOST"),"localhost","127.0.0.1"] 
 
 CORS_ALLOWED_ORIGINS = [
-    'abc.elliecee.xyz',
+    'https://abc.elliecee.xyz',
     "*"
 ]
 
