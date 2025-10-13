@@ -14,6 +14,7 @@
     {% endblocktranslate %}
 {% endblock %}
 {% block body %}
+    <h2 class="title h0">Just a few more details...</h2>
     <div class="main-container">
         <div class="body-container">
             {% if messages %}
@@ -31,12 +32,6 @@
                 <input type="hidden" name="request_id" value="{{request_id}}">
                 <input type="hidden" name="id_request" value="{{id_request}}">
                 <div class="appointment-user-info">
-                    <div class="appointment-user-info-title">
-                        <div class="title">
-                            {% trans "Fill out your details" %}
-                        </div>
-                    </div>
-                    <hr class="second-part">
                     <div class="user-info-input">
                         <div class="user-info" id="user-info">
                             <h1 class="description-title">{% trans "Tell us a bit about yourself" %}</h1>
@@ -89,10 +84,6 @@
                     </div>
                 </div>
                 <div class="service-description-and-pay">
-                    <div class="service-details-title">{% trans "Service Details" %}</div>
-
-                    <hr class="second-part">
-
                     <div class="service-description-content">
                         <div class="item-name">{{ ar.get_service_name }}</div>
                         <div id="service-datetime-chosen"
