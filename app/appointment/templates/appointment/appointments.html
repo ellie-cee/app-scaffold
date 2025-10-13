@@ -52,7 +52,7 @@
                         {% endif %}
                     </div>
                     <div class="djangoAppt_service-description">
-                        <form method="post" action="/apps/abc/appointment/request-submit/"
+                        <form method="post" action="/apps/xyz/appointment/request-submit/"
                               class="appointment-form">
                             {% csrf_token %}
                             <div class="staff-members-list">
@@ -114,7 +114,7 @@
         const serviceDuration = parseInt("{{ service.duration.total_seconds }}") / 60;
         const rescheduledDate = "{{ rescheduled_date }}";
         const appointmentRequestId = "{{ ar_id_request }}";
-        const appointmentRequestSubmitURL = "/apps/abc/appointment/request-submit/";
+        const appointmentRequestSubmitURL = "/apps/xyz/appointment/request-submit/";
         const appointmentRescheduleURL = "{% url 'appointment:reschedule_appointment_submit' %}";
     </script>
     <script>
