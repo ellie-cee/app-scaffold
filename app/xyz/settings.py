@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'site_auth.apps.AuthConfig',
     'shopify_auth.apps.ShopifyAuthConfig',
-    "shopify_proxy.apps.ShopifyProxyConfig"
+    "shopify_proxy.apps.ShopifyProxyConfig",
+    "appointment"
 ]
 
 MIDDLEWARE = [
@@ -143,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'  # Example: Eastern Time
 
 USE_I18N = False
 
@@ -246,6 +247,18 @@ LOGGING = {
         },
     },
 }
+
+APPOINTMENT_BASE_TEMPLATE = 'proxy/base.html'
+APPOINTMENT_WEBSITE_NAME = 'Eleanor Cassady'  # Can be set in the Config model.
+DEFAULT_FROM_EMAIL = "notifications@elliecee.xyz"
+APPOINTMENT_PAYMENT_URL = None
+APPOINTMENT_THANK_YOU_URL = None
+APPOINTMENT_BUFFER_TIME = 0  # Can be set in the Config Model. Minutes between now and the first available slot for the current day (doesn't affect future dates)
+APPOINTMENT_SLOT_DURATION = 30  # Can be set in the Config Model. Duration of each appointment slot in minutes 
+APPOINTMENT_LEAD_TIME = (9, 0)  # Can be set in the Config Model. Start time of the appointment slots (in 24-hour format)
+APPOINTMENT_FINISH_TIME = (16, 30)  # Can be set in the Config Model. End time of the appointment slots (in 24-hour format)
+USE_DJANGO_Q_FOR_EMAILS = False  # 🆕 Use Django Q for sending ALL emails.
+DJANGO_Q_AVAILABLE = False
 
 
 #wat

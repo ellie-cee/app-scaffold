@@ -1,0 +1,97 @@
+{% extends "email/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td align="center" valign="top" width="100%" bgcolor="#3b4a69"
+            style="background: #3b4a69 url('{% static 'img/email_hd_bg.jpg' %}'); background-size: cover; padding: 50px 15px;"
+            class="mobile-padding">
+            <!--[if (gte mso 9)|(IE)]>
+            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                    <td align="center" valign="top" width="600">
+            <![endif]-->
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                <tr>
+                    <td align="center" valign="top" style="padding: 0 0 20px 0;">
+                        {% comment %}<!--Add a logo img in future-->{% endcomment %}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top"
+                        style="padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                        <h1 style="font-size: 28px; color: #ffffff;">{{ main_title }}</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top"
+                        style="padding: 0 0 35px 0; font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="80%"
+                               style="max-width: 200px;">
+                            <tr>
+                                <td align="center" bgcolor="red"
+                                    style="color: #ffffff; font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; padding: 10px; border-radius: 3px 3px 0 0;">
+                                    {{ month_year }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#ffffff"
+                                    style="color: #444444; font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 48px; padding: 15px; border-radius: 0 0 3px 3px;">
+                                    {{ day }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top"
+                        style="font-family: Open Sans, Helvetica, Arial, sans-serif; padding-bottom: 30px;">
+
+                        <p style="color: #ffffff; font-size: 14px; line-height: 24px; margin: 0;">
+                            {% trans 'Thank you for choosing us.' %}
+                        </p>
+                    </td>
+                </tr>
+
+            </table>
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+    <tr style="max-width: 600px !important;">
+        <td align="center" valign="top" width="100%" bgcolor="#ffffff" style="padding: 50px 15px;"
+            class="mobile-padding">
+            <!--[if (gte mso 9)|(IE)]>
+            <table align="center" border="0" cellspacing="0" cellpadding="0" width="500">
+                <tr>
+                    <td align="center" valign="top" width="500">
+            <![endif]-->
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:500px;">
+                {% if reschedule_link %}
+                    <tr>
+                        <td align="left" valign="top"
+                            style="padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                            <h3>{% trans 'Rescheduling' %}</h3>
+                            <p style="margin-top: 15px !important; font-size: 14px">
+                                {% translate 'If your plans change and you need to reschedule your appointment, you can easily do so by following this link: ' %}
+                                <a href="{{ reschedule_link }}">
+                                    {% translate 'Reschedule Appointment' %}
+                                </a>
+                            </p>
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+</table>
+{% endblock %}

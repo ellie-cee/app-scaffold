@@ -17,6 +17,9 @@ def validProxy(fn):
             "customerId":request.GET.get("logged_in_customer_id"),
             "signature":request.GET.get("signature")
         }
+        if os.environ.get("ISLOCAL")=="yes":
+            return fn(request, *args, **kwargs)
+        
         contentType = "text/html" if details.get("signature") is None else "application/liquid"
         if details is None or details.get("shopDomain") is None:
             return render(

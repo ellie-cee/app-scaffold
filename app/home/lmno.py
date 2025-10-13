@@ -8,6 +8,9 @@ from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import traceback
+from django.forms.models import model_to_dict
+from django.db import models
+import uuid
 from datetime import datetime
 
 
@@ -97,7 +100,7 @@ class SearchableDict:
                 logger.info(ret)
                 
 def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",sender=os.environ.get("DEFAULT_EMAIL")) ->EmailStatus:
-    context["year"] = datetime.now().year
+    context["year"] = datetime.now().year   
     msg = EmailMultiAlternatives(
         subject,
         render_to_string(
@@ -119,4 +122,22 @@ def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",
         return EmailStatus()
     except:
         return EmailStatus(False,traceback.format_exc())
-    
+
+def modelToJson(model):
+    return model_to_dict(model)|{"id":str(model.id)}
+
+def jsonify(value):
+        if isinstance(value,models.Model):
+            return jsonify(modelToJson(value))
+        elif isinstance(value,dict):
+            ret = {}
+            for key,value in value.items():
+                if isinstance(value,uuid.UUID):
+                    ret[key] = str(value)
+                else:
+                    ret[key] = jsonify(value)
+            return ret
+        elif isinstance(value,list):
+            return [jsonify(x) for x in value]
+        else:
+            return value    
