@@ -95,9 +95,10 @@ def send_thank_you_email(ar: AppointmentRequest, user, request, email: str, appo
         'reschedule_link': reschedule_link,
     }
     send_email(
-            recipient_list=[email], subject=_("Thank you for booking us."),
+            recipient_list=[email], subject=_("See you soon!"),
             template_url='email_sender/thank_you_email.html', context=email_context,
-            attachments=[('appointment.ics', ics_file, 'text/calendar')]
+            attachments=[('appointment.ics', ics_file, 'text/calendar')],
+            from_email="Eleanor Cassady <ellie@elliecee.xyz",
     )
 
 
@@ -147,6 +148,7 @@ def send_reset_link_to_staff_member(user, request, email: str, account_details=N
             recipient_list=[email],
             subject=_("Set Your Password for {company}").format(company=website_name),
             message=message,
+            from_email="Eleanor Cassady <ellie@elliecee.xyz",
     )
 
 
@@ -206,7 +208,8 @@ def notify_admin_about_appointment(appointment, client_name: str):
                 subject=_("New Appointment Request for ") + client_name,
                 template_url='email_sender/admin_new_appointment_email.html',
                 context=staff_context,
-                attachments=[('appointment.ics', ics_file, 'text/calendar')]
+                attachments=[('appointment.ics', ics_file, 'text/calendar')],
+                from_email="Eleanor Cassady <ellie@elliecee.xyz",
         )
 
     logger.info(f"Notifications sent for appointment {appointment.id}")
@@ -224,7 +227,7 @@ def send_verification_email(user, email: str):
     """
     code = EmailVerificationCode.generate_code(user=user)
     message = _("Your verification code is {code}.").format(code=code)
-    send_email(recipient_list=[email], subject=_("Email Verification"), message=message)
+    send_email(recipient_list=[email], subject=_("Email Verification"), message=message,from_email="Eleanor Cassady <ellie@elliecee.xyz")
 
 
 def send_reschedule_confirmation_email(request, reschedule_history, appointment_request, first_name: str, email: str):
@@ -250,6 +253,7 @@ def send_reschedule_confirmation_email(request, reschedule_history, appointment_
     subject = _("Confirm Your Appointment Rescheduling")
     send_email(
             recipient_list=[email], subject=subject,
+            from_email="Eleanor Cassady <ellie@elliecee.xyz",
             template_url='email_sender/reschedule_email.html', context=email_context
     )
 
@@ -288,4 +292,5 @@ def notify_admin_about_reschedule(reschedule_history, appointment_request, clien
     if staff_member.user.email not in settings.ADMINS:
         send_email(recipient_list=[staff_member.user.email], subject=subject, context=email_context,
                    template_url='email_sender/reschedule_email.html',
+                   from_email="Eleanor Cassady <ellie@elliecee.xyz",
                    attachments=[('appointment.ics', ics_file, 'text/calendar')])

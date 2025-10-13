@@ -58,7 +58,11 @@ CLIENT_MODEL = get_user_model()
 
 logger = get_logger(__name__)
 
-
+def urlFor(request,path):
+    if request.GET.get("shop") is not None and request.GET.get("signature") is not None:
+        return f"/apps/xyz/appointment{path}"
+    else:
+        return f"/shopify-proxy/appointment{path}"
 
 @csrf_exempt
 def get_available_slots_ajax(request):
@@ -277,8 +281,7 @@ def appointment_request_submit(request):
                 ar = form.save()
                 request.session[f'appointment_completed_{ar.id_request}'] = False
                 # Redirect the user to the account creation page
-                return redirect('appointment:appointment_client_information', appointment_request_id=ar.id,
-                                id_request=ar.id_request)
+                return redirect(urlFor(request,f"/client-info/{ar.id}/{ar.id_request}/"))
 
         else:
             # Handle the case if the form is not valid
@@ -292,7 +295,7 @@ def appointment_request_submit(request):
     return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
-def redirect_to_payment_or_thank_you_page(appointment):
+def redirect_to_payment_or_thank_you_page(request,appointment):
     """This function redirects to the payment page or the thank-you page based on the configuration.
 
     :param appointment: The Appointment instance.
@@ -309,7 +312,7 @@ def redirect_to_payment_or_thank_you_page(appointment):
         if APPOINTMENT_THANK_YOU_URL:
             thank_you_url_key = APPOINTMENT_THANK_YOU_URL
 
-        thank_you_url = reverse(thank_you_url_key, kwargs={'appointment_id': appointment.id})
+        thank_you_url = urlFor(request,f"/thank-you/{appointment.id}/")
         return HttpResponseRedirect(thank_you_url)
 
 @csrf_exempt
@@ -324,17 +327,24 @@ def create_appointment(request, appointment_request_obj, client_data, appointmen
     """
     appointment = create_and_save_appointment(appointment_request_obj, client_data, appointment_data, request)
     notify_admin_about_appointment(appointment, appointment.client.first_name)
-    return redirect_to_payment_or_thank_you_page(appointment)
+    return redirect_to_payment_or_thank_you_page(request,appointment)
+
+@csrf_exempt
+def client_info_submit(request):
+    return appointment_client_information(request,appointment_request_id=request.POST.get("request_id"),id_request=request.POST.get("id_request"))
 
 @csrf_exempt
 def appointment_client_information(request, appointment_request_id, id_request):
     """This view function handles client information submission for an appointment.
+    
+    
 
     :param request: The request instance.
     :param appointment_request_id: The ID of the appointment request.
     :param id_request: The unique ID of the appointment request.
     :return: The rendered HTML page.
     """
+    print(request.path_info)
     ar = get_object_or_404(AppointmentRequest, pk=appointment_request_id)
     
     
@@ -363,12 +373,6 @@ def appointment_client_information(request, appointment_request_id, id_request):
             payment_type = request.POST.get('payment_type')
             ar.payment_type = payment_type
             ar.save()
-
-            # Check if email is already in the database
-            is_email_in_db = CLIENT_MODEL.objects.filter(email__exact=client_data['email']).exists()
-            if is_email_in_db:
-                print("existing email")
-                return handle_existing_email(request, client_data, appointment_data, appointment_request_id, id_request)
             
             request.session['email'] = payload.get("email")
             request.session['phone'] = str(payload.get("phone"))
@@ -376,6 +380,13 @@ def appointment_client_information(request, appointment_request_id, id_request):
             request.session['address'] = payload.get('address')
             request.session['additional_info'] = payload.get("additional_info")
 
+
+            # Check if email is already in the database
+            is_email_in_db = CLIENT_MODEL.objects.filter(email__exact=client_data['email']).exists()
+            if is_email_in_db:
+                print("existing email")
+                #return handle_existing_email(request, client_data, appointment_data, appointment_request_id, id_request)
+            
             logger.info(f"Creating a new user: {client_data}")
             user = create_new_user(client_data)
             #messages.success(request, _("An account was created for you."))
@@ -395,6 +406,8 @@ def appointment_client_information(request, appointment_request_id, id_request):
         'client_data_form': client_data_form,
         'service_name': ar.service.name,
         'has_required_email_reminder_config': has_required_email_reminder_config,
+        "request_id":appointment_request_id,
+        "id_request":id_request
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
     return render(request, 'appointment/appointment_client_information.html', context=context,content_type=responseContentType(request))
@@ -429,6 +442,8 @@ def enter_verification_code(request, appointment_request_id, id_request):
         email = request.session.get('email')
         code = request.POST.get('code')
         user = get_user_by_email(email)
+        
+        print(email)
 
         if verify_user_and_login(request, user, code):
             appointment_request_object = AppointmentRequest.objects.get(pk=appointment_request_id)
@@ -642,4 +657,4 @@ def confirm_reschedule(request, id_request):
     # notify admin and the concerned staff admin about client's rescheduling
     client_name = Appointment.objects.get(appointment_request=ar).client.get_full_name()
     notify_admin_about_reschedule(reschedule_history, ar, client_name)
-    return redirect('appointment:default_thank_you', appointment_id=ar.appointment.id)
+    return redirect(urlFor(request,f"/thank-you/{ar.appointment_id}/{ar.appointment.id}/"))

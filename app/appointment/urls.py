@@ -11,7 +11,7 @@ from django.urls import include, path
 from appointment.views import (
     appointment_client_information, appointment_request, appointment_request_submit, confirm_reschedule,
     default_thank_you, enter_verification_code, get_available_slots_ajax, get_next_available_date_ajax,
-    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd
+    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd, client_info_submit
 )
 from appointment.views_admin import (
     add_day_off, add_or_update_service, add_or_update_staff_info, add_staff_member_info, add_working_hours,
@@ -106,6 +106,8 @@ urlpatterns = [
     path('appointment-reschedule-submit/', reschedule_appointment_submit, name='reschedule_appointment_submit'),
     path('confirm-reschedule/<str:id_request>/', confirm_reschedule, name='confirm_reschedule'),
     path('client-info/<int:appointment_request_id>/<str:id_request>/', appointment_client_information,
+         name='appointment_client_information'),
+    path('client-info/', client_info_submit,
          name='appointment_client_information'),
     path('verification-code/<int:appointment_request_id>/<str:id_request>/', enter_verification_code,
          name='enter_verification_code'),

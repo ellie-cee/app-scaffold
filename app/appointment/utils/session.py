@@ -43,6 +43,7 @@ def handle_existing_email(request, client_data, appointment_data, appointment_re
     session_keys = ['email', 'phone', 'want_reminder', 'address', 'additional_info']
     phone = appointment_data['phone']
 
+    """
     for key in session_keys:
         if key in request.session:
             del request.session[key]
@@ -52,6 +53,7 @@ def handle_existing_email(request, client_data, appointment_data, appointment_re
     request.session['want_reminder'] = appointment_data['want_reminder']
     request.session['address'] = appointment_data['address']
     request.session['additional_info'] = appointment_data['additional_info']
+    """
 
     # request.session['BASE_TEMPLATE'] = get_generic_context(request, admin=False)['BASE_TEMPLATE']
     request.session.modified = True

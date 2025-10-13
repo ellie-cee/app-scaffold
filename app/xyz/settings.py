@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [os.getenv("APP_HOST"),"localhost","127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = [
     'https://abc.elliecee.xyz',
-    "*"
+    "http://127.0.0.1"
 ]
 
 
@@ -94,7 +94,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 "home.context_procesors.sidebarNav",
                 "home.context_procesors.env",
-                "home.context_procesors.proxyDetails"
+                "home.context_procesors.proxyDetails",
+                "appointment.context_processors.app_urls"
             ],
         },
     },

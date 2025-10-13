@@ -24,10 +24,12 @@
             {% endif %}
 
             <form method="post"
-                  action="/apps/abc/appointment/appointment_client_information/"
+                  action="{{ client_info }}"
                   class="page-body">
                 {% csrf_token %}
                 <input type="hidden" name="want_reminder" value="0">
+                <input type="hidden" name="request_id" value="{{request_id}}">
+                <input type="hidden" name="id_request" value="{{id_request}}">
                 <div class="appointment-user-info">
                     <div class="appointment-user-info-title">
                         <div class="title">
