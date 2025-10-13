@@ -9,8 +9,8 @@ class ConfigurationError(BaseException):
 class LoginProtection(object):
     def __init__(self, get_response):
         self.get_response = get_response
-        self.api_key = apps.get_app_config('shopify_auth').SHOPIFY_API_KEY
-        self.api_secret = apps.get_app_config('shopify_auth').SHOPIFY_API_SECRET
+        self.api_key = apps.get_app_config('shopify_sites').SHOPIFY_API_KEY
+        self.api_secret = apps.get_app_config('shopify_sites').SHOPIFY_API_SECRET
         if not self.api_key or not self.api_secret:
             if not os.getenv("SHOPIFY_KEY"):
                 raise ConfigurationError("SHOPIFY_API_KEY and SHOPIFY_API_SECRET must be set in ShopifyAppConfig")
@@ -23,7 +23,7 @@ class LoginProtection(object):
 
     def __call__(self, request):
         if hasattr(request, 'session') and 'shopify' in request.session:
-            api_version = apps.get_app_config('shopify_auth').SHOPIFY_API_VERSION
+            api_version = apps.get_app_config('shopify_sites').SHOPIFY_API_VERSION
             shop_url = request.session['shopify']['shop_url']
             shopify_session = shopify.Session(shop_url, api_version)
             shopify_session.token = request.session['shopify']['access_token']

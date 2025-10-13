@@ -2,8 +2,8 @@ from django.apps import AppConfig
 import os
 
 
-class ShopifyAuthConfig(AppConfig):
-    name = 'shopify_auth'
+class ShopifySitesConfig(AppConfig):
+    name = 'shopify_sites'
     # Replace the API Key and Shared Secret with the one given for your
     # App by Shopify.
     #

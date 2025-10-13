@@ -53,16 +53,10 @@ from .utils.ics_utils import generate_ics_file
 from django.views.decorators.csrf import csrf_exempt
 from .utils.json_context import get_generic_context_with_extra, json_response
 from shopify_proxy.views import responseContentType
-
 CLIENT_MODEL = get_user_model()
 
 logger = get_logger(__name__)
-
-def urlFor(request,path):
-    if request.GET.get("shop") is not None and request.GET.get("signature") is not None:
-        return f"/apps/xyz/appointment{path}"
-    else:
-        return f"/shopify-proxy/appointment{path}"
+    
 
 @csrf_exempt
 def get_available_slots_ajax(request):

@@ -212,7 +212,6 @@ class Service(models.Model):
     def accepts_down_payment(self):
         return self.down_payment > 0
 
-
 class StaffMember(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("User"))
     services_offered = models.ManyToManyField(
@@ -253,6 +252,7 @@ class StaffMember(models.Model):
         verbose_name=_("Work on Sunday"),
         help_text=_("Indicates whether this staff member works on Sundays.")
     )
+    
 
     # meta data
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))

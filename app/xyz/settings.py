@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     #'django_redis',
     'home.apps.HomeConfig',
     'site_auth.apps.AuthConfig',
-    'shopify_auth.apps.ShopifyAuthConfig',
+    'shopify_sites.apps.ShopifySitesConfig',
     "shopify_proxy.apps.ShopifyProxyConfig",
     "appointment"
 ]
@@ -64,8 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'shopify_auth.middleware.LoginProtection',
-    'shopify_auth.middleware.ShopifyEmbed'
+    'shopify_sites.middleware.LoginProtection',
+    'shopify_sites.middleware.ShopifyEmbed'
 ]
 
 CACHES = {

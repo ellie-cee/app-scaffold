@@ -10,7 +10,7 @@ import hmac,hashlib
 class ShopifySite(models.Model):
     id = models.BigAutoField(primary_key=True)
     shopName = models.CharField(max_length=128)
-    shopDomain = models.CharField(max_length=64)
+    shopDomain = models.CharField(max_length=64,default="",db_index=True)
     appKey = models.CharField(max_length=64)
     accessToken = models.CharField(max_length=255)
     shopifyUrl = models.CharField(max_length=255,default="")

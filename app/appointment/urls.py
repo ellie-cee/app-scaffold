@@ -11,7 +11,8 @@ from django.urls import include, path
 from appointment.views import (
     appointment_client_information, appointment_request, appointment_request_submit, confirm_reschedule,
     default_thank_you, enter_verification_code, get_available_slots_ajax, get_next_available_date_ajax,
-    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd, client_info_submit
+    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd,
+    client_info_submit
 )
 from appointment.views_admin import (
     add_day_off, add_or_update_service, add_or_update_staff_info, add_staff_member_info, add_working_hours,
@@ -24,11 +25,11 @@ from appointment.views_admin import (
 
 app_name = 'appointment'
 
+
 admin_urlpatterns = [
     # display the calendar with the events
     path('appointments/<str:response_type>/', get_user_appointments, name='get_user_event_type'),
     path('appointments/', get_user_appointments, name='get_user_appointments'),
-
     # create a new staff member and make/remove superuser staff member
     path('add-staff-member-info/', add_staff_member_info, name='add_staff_member_info'),
     path('create-new-staff-member/', create_new_staff_member, name='add_staff_member_personal_info'),
@@ -100,7 +101,7 @@ ajax_urlpatterns = [
 urlpatterns = [
     # homepage
     path('request/<int:service_id>/', appointment_request, name='appointment_request'),
-    path('request-submit/', appointment_request_submit, name='appointment_request_submit'),
+    path('request-submit/', appointment_request_submit,name='apointment_request_submit'),
     path('appointment/<str:id_request>/reschedule/', prepare_reschedule_appointment,
          name='prepare_reschedule_appointment'),
     path('appointment-reschedule-submit/', reschedule_appointment_submit, name='reschedule_appointment_submit'),
