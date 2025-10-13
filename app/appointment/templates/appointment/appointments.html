@@ -109,7 +109,7 @@
         const locale = "{{ locale }}";
         const availableSlotsAjaxURL = "//{{ env.APP_HOST}}/shopify-proxy/appointment/ajax/available_slots/";
         const requestNextAvailableSlotURLTemplate = "{% url 'appointment:request_next_available_slot' service_id=0 %}";
-        const getNonWorkingDaysURL = "//{{ env.APP_HOST}}/shopify-proxy/appointment/ajax/get_non_working_days/";
+        const getNonWorkingDaysURL = "//{{ env.APP_HOST}}/shopify-proxy/appointment/ajax/request_staff_info/";
         const serviceId = "{{ service.id }}";
         const serviceDuration = parseInt("{{ service.duration.total_seconds }}") / 60;
         const rescheduledDate = "{{ rescheduled_date }}";
