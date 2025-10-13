@@ -14,7 +14,6 @@
     {% endblocktranslate %}
 {% endblock %}
 {% block body %}
-    <h2 class="title h0">Just a few more details...</h2>
     <div class="main-container">
         <div class="body-container">
             {% if messages %}
@@ -23,7 +22,7 @@
                          role="alert">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-
+            
             <form method="post"
                   action="{{ client_info }}"
                   class="page-body">
@@ -33,7 +32,9 @@
                 <input type="hidden" name="id_request" value="{{id_request}}">
                 <div class="appointment-user-info">
                     <div class="user-info-input">
+                        <h2 class="title h0">Just a few more details...</h2>
                         <div class="user-info" id="user-info">
+                            
                             <h1 class="description-title">{% trans "Tell us a bit about yourself" %}</h1>
                             <!--
                             <div class="already-have-account">
