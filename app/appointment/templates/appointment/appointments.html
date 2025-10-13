@@ -114,7 +114,7 @@
         const serviceDuration = parseInt("{{ service.duration.total_seconds }}") / 60;
         const rescheduledDate = "{{ rescheduled_date }}";
         const appointmentRequestId = "{{ ar_id_request }}";
-        const appointmentRequestSubmitURL = "{% url 'appointment:appointment_request_submit' %}";
+        const appointmentRequestSubmitURL = "/apps/abc/appointment/request-submit/";
         const appointmentRescheduleURL = "{% url 'appointment:reschedule_appointment_submit' %}";
     </script>
     <script>
