@@ -59,7 +59,7 @@ CLIENT_MODEL = get_user_model()
 logger = get_logger(__name__)
 
 
-@require_ajax
+
 @csrf_exempt
 def get_available_slots_ajax(request):
     """This view function handles AJAX requests to get available slots for a selected date.
@@ -126,7 +126,7 @@ def get_available_slots_ajax(request):
 
 
 # TODO: service id and staff id are not checked
-@require_ajax
+
 @csrf_exempt
 def get_next_available_date_ajax(request, service_id):
     """This view function handles AJAX requests to get the next available date for a service.
