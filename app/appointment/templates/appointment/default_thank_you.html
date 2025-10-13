@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block customCSS %}
-    <link rel="stylesheet" type="text/css" href="//{{env.APP_HOST}}/css/thank_you.css"/>
+    <link rel="stylesheet" type="text/css" href="//{{env.APP_HOST}}/static/css/thank_you.css"/>
 {% endblock %}
 {% block title %}
     {{ page_title }}
@@ -32,5 +32,5 @@
     </div>
 {% endblock %}
 {% block customJS %}
-    <script src="//{{env.APP_HOST}}/js/js-utils.js"></script>
+    <script src="//{{env.APP_HOST}}/static/js/js-utils.js"></script>
 {% endblock %}
