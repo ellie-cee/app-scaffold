@@ -7,8 +7,9 @@ import os
 logger = Logger(__name__)
 
 # Create your views here.
-def responseContentType():
-    return "text/html" if os.environ.get("ISLOCAL")=="yes" else "application/liquid"
+def responseContentType(request):
+    proxied = request.GET.get("shop") is not None and request.GET.get("signature") is not None
+    return "application/liquid" if proxied else "text/html"
     
 
 def index(request):

@@ -250,7 +250,7 @@ def appointment_request(request, service_id=None, staff_member_id=None):
         'label': label
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
-    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def appointment_request_submit(request):
@@ -289,7 +289,7 @@ def appointment_request_submit(request):
         form = AppointmentRequestForm()
 
     context = get_generic_context_with_extra(request, {'form': form}, admin=False)
-    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def redirect_to_payment_or_thank_you_page(appointment):
@@ -344,7 +344,7 @@ def appointment_client_information(request, appointment_request_id, id_request):
 
     if request.session.get(f'appointment_submitted_{id_request}', False):
         context = get_generic_context_with_extra(request, {'service_id': ar.service_id}, admin=False)
-        return render(request, 'error_pages/304_already_submitted.html', context=context,content_type=responseContentType())
+        return render(request, 'error_pages/304_already_submitted.html', context=context,content_type=responseContentType(request))
 
     if request.method == 'POST':
         print("post",request.POST.dict())
@@ -397,7 +397,7 @@ def appointment_client_information(request, appointment_request_id, id_request):
         'has_required_email_reminder_config': has_required_email_reminder_config,
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
-    return render(request, 'appointment/appointment_client_information.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/appointment_client_information.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def verify_user_and_login(request, user, code):
@@ -448,7 +448,7 @@ def enter_verification_code(request, appointment_request_id, id_request):
         'id_request': id_request,
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
-    return render(request, 'appointment/enter_verification_code.html', context,content_type=responseContentType())
+    return render(request, 'appointment/enter_verification_code.html', context,content_type=responseContentType(request))
 
 @csrf_exempt
 def default_thank_you(request, appointment_id):
@@ -484,7 +484,7 @@ def default_thank_you(request, appointment_id):
         'appointment': appointment,
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
-    return render(request, 'appointment/default_thank_you.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/default_thank_you.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def set_passwd(request, uidb64, token):
@@ -512,18 +512,18 @@ def set_passwd(request, uidb64, token):
                         'page_description': _("You can now use your new password to log in.")
                     }
                     context = get_generic_context_with_extra(request, extra, admin=False)
-                    return render(request, 'appointment/thank_you.html', context=context,content_type=responseContentType())
+                    return render(request, 'appointment/thank_you.html', context=context,content_type=responseContentType(request))
             else:
                 form = SetPasswordForm(user)  # Display empty form for GET request
         else:
             messages.error(request, passwd_error)
-            return render(request, 'appointment/thank_you.html', context=context_,content_type=responseContentType())
+            return render(request, 'appointment/thank_you.html', context=context_,content_type=responseContentType(request))
     except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
         messages.error(request, _("The password reset link is invalid or has expired."))
-        return render(request, 'appointment/thank_you.html', context=context_,content_type=responseContentType())
+        return render(request, 'appointment/thank_you.html', context=context_,content_type=responseContentType(request))
 
     context_.update({'form': form})
-    return render(request, 'appointment/set_password.html', context_,content_type=responseContentType())
+    return render(request, 'appointment/set_password.html', context_,content_type=responseContentType(request))
 
 @csrf_exempt
 def prepare_reschedule_appointment(request, id_request):
@@ -533,7 +533,7 @@ def prepare_reschedule_appointment(request, id_request):
         url = reverse('appointment:appointment_request', kwargs={'service_id': ar.service.id})
         context = get_generic_context_with_extra(request, {'url': url, }, admin=False)
         logger.error(f"Appointment with id_request {id_request} cannot be rescheduled")
-        return render(request, 'error_pages/403_forbidden_rescheduling.html', context=context, status=403,content_type=responseContentType())
+        return render(request, 'error_pages/403_forbidden_rescheduling.html', context=context, status=403,content_type=responseContentType(request))
 
     service = ar.service
     selected_sm = ar.staff_member
@@ -565,7 +565,7 @@ def prepare_reschedule_appointment(request, id_request):
         'ar_id_request': ar.id_request,
     }
     context = get_generic_context_with_extra(request, extra_context, admin=False)
-    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def reschedule_appointment_submit(request):
@@ -596,13 +596,13 @@ def reschedule_appointment_submit(request):
             email = Appointment.objects.get(appointment_request=ar).client.email
             send_reschedule_confirmation_email(request=request, reschedule_history=arh, first_name=client_first_name,
                                                email=email, appointment_request=ar)
-            return render(request, 'appointment/rescheduling_thank_you.html', context=context,content_type=responseContentType())
+            return render(request, 'appointment/rescheduling_thank_you.html', context=context,content_type=responseContentType(request))
         else:
             messages.error(request, _("There was an error in your submission. Please check the form and try again."))
     else:
         form = AppointmentRequestForm()
     context = get_generic_context_with_extra(request, {'form': form}, admin=False)
-    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType())
+    return render(request, 'appointment/appointments.html', context=context,content_type=responseContentType(request))
 
 @csrf_exempt
 def confirm_reschedule(request, id_request):
@@ -612,7 +612,7 @@ def confirm_reschedule(request, id_request):
         error_message = _("O-o-oh! This link is no longer valid.") if not reschedule_history.still_valid() else _(
                 "O-o-oh! Can't find the pending reschedule request.")
         context = get_generic_context_with_extra(request, {"error_message": error_message}, admin=False)
-        return render(request, 'error_pages/404_not_found.html', status=404, context=context,content_type=responseContentType())
+        return render(request, 'error_pages/404_not_found.html', status=404, context=context,content_type=responseContentType(request))
 
     ar = reschedule_history.appointment_request
 
