@@ -37,8 +37,12 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     selectable: true,
     dateClick: function (info) {
         const day = info.date.getDay();  // Get the day of the week (0 for Sunday, 6 for Saturday)
-        console.error(day)
-        if (nonWorkingDays.includes(day)) {
+        
+        let today = new Date()
+        today.setHours(0)
+        today.setMinutes(0)
+        today.setSeconds(0)
+        if ((day<0 || day>4)|| info.date<today) {
             return;
         }
 
@@ -61,17 +65,26 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     },
     selectAllow: function (info) {
         const day = info.start.getDay();  // Get the day of the week (0 for Sunday, 6 for Saturday)
-        if (nonWorkingDays.includes(day)) {
+        console.error("day is",day)
+        if (day<0 || day>4) {
             return false;  // Disallow selection for non-working days
         }
         return (info.start >= getDateWithoutTime(new Date()));
     },
     dayCellClassNames: function (info) {
+        let today = new Date()
+        today.setHours(0)
+        today.setMinutes(0)
+        today.setSeconds(0)
         const day = info.date.getDay();
-        if (day==0 || day==6) {        
+        
+        if (info.date<today) {
+            return ['disabled-day'];
+        } else if (day<0 || day>4) {        
+            
             return ['disabled-day'];
         }
-        console.error(` working day ${day}`)    
+        
         return [];
     },
 });
@@ -174,12 +187,14 @@ function fetchNonWorkingDays(staffId, callback) {
         data: ajaxData,
         dataType: 'json',
         success: function (data) {
-            console.error(data)
+            
             if (data.error) {
                 console.error('Error fetching non-working days:', data.message);
                 callback([]);
             } else {
                 nonWorkingDays = data.non_working_days;
+                
+
                 calendar.render();
                 callback(data.non_working_days);
             }

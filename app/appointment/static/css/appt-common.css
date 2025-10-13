@@ -116,7 +116,7 @@ a {
 
 .djangoAppt_appointment-slot {
     border: 1px solid #ccc;
-    background-color: rgba(0, 48, 124, 0.95);
+    background-color: #1b5858;
     color: #fff;
     padding: 7px;
     margin-bottom: 6px;
@@ -125,7 +125,7 @@ a {
 }
 
 .djangoAppt_appointment-slot:hover {
-    background-color: #fff;
+    background-color: #c1ffff;
     color: rgba(42, 42, 42, 0.82);
 }
 
@@ -149,20 +149,20 @@ a {
 
 /* Change the color of the buttons for the calendar */
 .fc-button {
-    background-color: rgba(0, 48, 124, 0.95) !important;
+    background-color: #1b5858 !important;
     border-color: rgba(2, 76, 157, 0.85) !important;
     color: #fff !important;
 }
 
 /* Change the color of the buttons when hovered */
 .fc-button:hover {
-    background-color: #025bbb !important;
+    background-color: #c1ffff !important;
     border-color: #0056b3;
 }
 
 /* Change the color of the buttons when active or focused */
 .fc-button:active, .fc-button:focus {
-    background-color: #0759b2 !important;
+    background-color: #1b5858 !important;
     border-color: #145294;
 }
 
