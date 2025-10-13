@@ -22,7 +22,6 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.timezone import get_current_timezone_name
 from django.utils.translation import gettext as _
 from home.lmno import jsonify
-from home.views import re
 
 from appointment.forms import AppointmentForm, AppointmentRequestForm, ClientDataForm, SlotForm
 from appointment.logger_config import get_logger
