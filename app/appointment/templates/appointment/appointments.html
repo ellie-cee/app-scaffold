@@ -52,7 +52,7 @@
                         {% endif %}
                     </div>
                     <div class="djangoAppt_service-description">
-                        <form method="post" action="{% url 'appointment:appointment_request_submit' %}"
+                        <form method="post" action="/apps/abc/appointment/request-submit/"
                               class="appointment-form">
                             {% csrf_token %}
                             <div class="staff-members-list">

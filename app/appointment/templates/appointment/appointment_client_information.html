@@ -24,7 +24,7 @@
             {% endif %}
 
             <form method="post"
-                  action="{% url 'appointment:appointment_client_information' ar.id ar.get_id_request %}"
+                  action="/apps/abc/appointment/appointment_client_information/"
                   class="page-body">
                 {% csrf_token %}
                 <input type="hidden" name="want_reminder" value="0">
