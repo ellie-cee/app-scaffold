@@ -10,10 +10,8 @@ class Esc {
     }
     constructUrl(path) {
         let rp = null;
-        if (path.includes("http")) {
-            rp = path;
-        } else if (this.options.appHost) {
-            rp =  `//${this.options.appHost}${path}`
+        if (this.options.appHost) {
+            rp =  `${location.protocol}//${this.options.appHost}${path}`
         } else {
             rp =  path;
         }
