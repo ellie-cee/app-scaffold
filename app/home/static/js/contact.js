@@ -16,7 +16,7 @@ class ContactForm extends JsForm {
             `
         } else {
             return `
-                <div class="formRow">
+                <div class="formrow">
                     <div class="formField">
                         <label>Your Name</label>
                         <input type="text" name="name" required>
@@ -26,7 +26,7 @@ class ContactForm extends JsForm {
                         <input type="email" name="email" required>
                     </div>
                 </div>
-                <div class="formRow">
+                <div class="formrow">
                     <div class="formField">
                         <label>
                             How may I be of assistance?
@@ -40,14 +40,14 @@ class ContactForm extends JsForm {
                         </select>
                     </div>
                 </div>
-                <div class="formRow">
+                <div class="formrow">
                     <div class="formField">
                         <label>
                             Let's hear it!
                         </label>
                         <textarea name="message" rows="10" placeholder="be as wordy as you want to" required></textarea>
                     </div class="formField">
-                </div class="formRow">
+                </div class="formrow">
             `
         }
     }
