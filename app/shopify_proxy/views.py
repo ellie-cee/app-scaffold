@@ -27,7 +27,7 @@ def test(request):
     return render(
         request,
         "proxy/test.html",
-        content_type=responseContentType()
+        content_type=responseContentType(request)
     )
 
 def getProxyDetails(request):
