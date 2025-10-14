@@ -33,14 +33,12 @@
 .appointment-user-info-title, .service-details-title, .payment-details-title {
     margin-bottom: 10px;
     font-size: 18px;
-    color: #0c042c;
 }
 
 /* Set font styles for description titles */
 .description-title {
     font-size: 16px;
     font-weight: 400;
-    color: #0c042c;
 }
 
 /* Set margins, borders, padding, and font styles for the "already have an account" section */
@@ -48,7 +46,6 @@
     margin-top: 25px;
     margin-bottom: 30px;
     width: 100%;
-    border: 1px solid #0c042c;
     border-radius: 2px;
     justify-content: left;
     padding: 10px 8px;
@@ -95,18 +92,15 @@
 .phone-number select {
     padding: 6px 10px;
     border-radius: 4px;
-    border: 1px solid #ccc;
     appearance: none; /* remove default appearance */
-    background-color: #fff;
     margin-right: 10px;
     cursor: pointer;
     font-size: 14px;
-    color: #333;
     transition: border-color 0.3s;
 }
 
 .phone-number select:focus {
-    border-color: #007bff;
+    border-color:var(--color-foreground);
     outline: none;
 }
 
@@ -128,7 +122,7 @@
 /* Set grid display, padding, margin, and font styles for service description */
 .service-description-content {
     margin-top: 20px;
-    color: black;
+    
     padding-top: 30px;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
@@ -139,18 +133,14 @@
 
 /* Set font style for service name */
 .item-name {
-    color: black;
+    
 }
 
 /* Set flex for title section */
-.title {
-    flex: 1;
-}
+
 
 /* Set color for links */
-a {
-    color: #0c042c;
-}
+
 
 
 .name-email {
@@ -167,7 +157,7 @@ a {
     justify-content: space-between;
     align-items: center;
     
-    color: rgba(12, 4, 44, 0.93);
+
     font-size: 16px;
     line-height: 1.8;
 }

@@ -2,9 +2,9 @@
     margin: 20px auto;
     max-width: 1200px;
     padding: 20px;
-    background-color: rgba(248, 249, 250, 0.4);
+    
     border-radius: 5px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    
 }
 
 .djangoAppt_body-container {
@@ -24,7 +24,7 @@
     padding: 20px;
     
     border-radius: 5px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    
 }
 
 .djangoAppt_service-description {
@@ -33,7 +33,7 @@
     padding: 20px;
     
     border-radius: 5px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    
 }
 
 .djangoAppt_second-part {
@@ -82,7 +82,7 @@
     flex: 1;
     text-align: right;
     font-size: 16px;
-    color: #333;
+    
 }
 
 .fc-day {
@@ -93,9 +93,6 @@
     height: 20px;
 }
 
-a {
-    color: #0c042c;
-}
 
 .djangoAppt_slot {
     margin-left: 20px;
@@ -116,7 +113,7 @@ a {
 
 .djangoAppt_appointment-slot {
     border: 1px solid #ccc;
-    background-color: #1b5858;
+    background-color: var(--color-foreground);
     color: #fff;
     padding: 7px;
     margin-bottom: 6px;
@@ -125,13 +122,13 @@ a {
 }
 
 .djangoAppt_appointment-slot:hover {
-    background-color: #c1ffff;
+    background-color: var(--color-background);
     color: rgba(42, 42, 42, 0.82);
 }
 
 .selected {
-    background-color: #fff;
-    color: rgba(42, 42, 42, 0.82);
+    
+    color: var(--color-foreground);
 }
 
 .djangoAppt_next-available-date {
@@ -157,20 +154,20 @@ a {
 /* Change the color of the buttons when hovered */
 .fc-button:hover {
     background-color: #c1ffff !important;
-    border-color: #0056b3;
+    border-color: var(--color-foreground)
 }
 
 /* Change the color of the buttons when active or focused */
 .fc-button:active, .fc-button:focus {
     background-color: #1b5858 !important;
-    border-color: #145294;
+    border-color: var(--color-background)
 }
 
 .djangoAppt_date_chosen {
     margin-left: 5px;
     padding-left: 5px;
     font-size: 18px;
-    color: #333;
+  
     font-weight: bold;
 }
 
@@ -183,7 +180,7 @@ a {
 .djangoAppt_no-availability-text {
     margin-left: 5px;
     padding-left: 5px;
-    color: #f00;
+    color: #880000;
     font-weight: bold;
 }
 
@@ -231,7 +228,7 @@ a {
     padding: 2px 4px;
     border: 1px solid rgba(255, 227, 227, 0.89);
     border-radius: 5px;
-    background-color: #d4eaf5;
+    
     color: #333;
     appearance: none; /* Remove default arrow icon in some browsers */
     -webkit-appearance: none; /* For Webkit browsers */

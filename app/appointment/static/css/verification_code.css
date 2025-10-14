@@ -8,9 +8,9 @@
 }
 
 .vcode-card {
-    background-color: #ffffff;
+   
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   
     padding: 40px;
     width: 100%;
     max-width: 400px;
@@ -19,14 +19,14 @@
 .vcode-title {
     font-size: 24px;
     font-weight: 600;
-    color: #333;
+   
     text-align: center;
     margin-bottom: 20px;
 }
 
 .vcode-instruction {
     font-size: 16px;
-    color: #666;
+   
     text-align: center;
     margin-bottom: 30px;
 }
@@ -44,7 +44,7 @@
     display: block;
     font-size: 14px;
     font-weight: 500;
-    color: #333;
+   
     margin-bottom: 8px;
 }
 
@@ -52,18 +52,18 @@
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ddd;
+   
     border-radius: 4px;
     transition: border-color 0.3s ease;
 }
 
 .vcode-input:focus {
     outline: none;
-    border-color: #4a90e2;
+   
 }
 
 .vcode-button {
-    background-color: #4a90e2;
+    background-color: var(--color-foreground);
     color: #ffffff;
     font-size: 16px;
     font-weight: 500;
@@ -75,7 +75,7 @@
 }
 
 .vcode-button:hover {
-    background-color: #3a7bc8;
+    background-color: var(--color-foreground)
 }
 
 .vcode-alert {
@@ -88,7 +88,7 @@
 
 .vcode-alert-error {
     background-color: #fde8e8;
-    color: #9b1c1c;
+    color: #800;
     border: 1px solid #fbd5d5;
 }
 
