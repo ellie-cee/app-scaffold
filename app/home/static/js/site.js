@@ -11,7 +11,7 @@ class Esc {
     constructUrl(path) {
         let rp = null;
         if (this.options.appHost) {
-            rp =  `${location.protocol}//${this.options.appHost}${path}`
+            rp =  `${location.protocol} //${this.options.appHost}${path}`
         } else {
             rp =  path;
         }
@@ -280,11 +280,12 @@ class JsForm extends Esc {
         }
     }
     proxyUrlFor(path) {
-        
-        if (location.host.includes("127.0.0.1")) {
-            return `/shopify-proxy/${path}`
-        } else {
+        let params = new URLSearchParams(location.search)
+        if (params.get("shop") && params.get("signature")) {
             return `/apps/xyz/${path}`
+            
+        } else {
+            return `/shopify-proxy/${path}`
         }
     }
     dispatchEvent(thisEventName,detail=null) {
