@@ -32,6 +32,4 @@ urlpatterns = [
     path('shopify-proxy/appointment/', include('appointment.urls')),
  ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-print(settings.STATIC_URL,settings.STATIC_ROOT)
-print(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
 
