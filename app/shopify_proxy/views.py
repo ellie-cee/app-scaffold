@@ -37,7 +37,8 @@ def getProxyDetails(request):
 def contactForm(request):
     return render(
         request,
-        "contact.html"
+        "contact.html",
+        content_type=responseContentType()
     )
 def sendContact(request):
     payload = getJsonPayload(request)
