@@ -49,7 +49,7 @@ class Esc {
     }
     async post(url,payload) {
         return this.postRaw(
-            this.constructUrl(url),
+            url,
             JSON.stringify(payload)
         ).then(response=>response.json())
     }
