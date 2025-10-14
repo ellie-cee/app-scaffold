@@ -12,7 +12,7 @@ class Esc {
         if (path.includes("http")) {
             return path;
         } else if (this.options.appHost) {
-            return `${this.options.appHost}${path}`
+            return `//${this.options.appHost}${path}`
         } else {
             return path;
         }
