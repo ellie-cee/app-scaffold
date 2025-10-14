@@ -1,0 +1,17 @@
+{% extends "headless.html" %}
+
+{% block content %}
+<style type="text/css">
+    .jsapp {
+        width:75%;
+        margin:auto;
+    }
+</style>
+<script src="//{{ env.APP_HOST}}/static/js/contact.js"></script>
+<div class="jsapp">
+    
+</div>
+<script>
+    window.contactForm = new ContactForm({objectId:null});
+</script>
+{% endblock %}

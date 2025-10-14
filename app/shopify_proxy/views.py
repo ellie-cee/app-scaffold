@@ -1,6 +1,9 @@
+import traceback
 from django.shortcuts import render
 from django.template import RequestContext
 from .decorators import validProxy
+from home.views import getJsonPayload,jsonResponse
+from home.lmno import sendEmail
 from logging import Logger
 import os
 
@@ -27,7 +30,38 @@ def test(request):
         content_type=responseContentType()
     )
 
-
 def getProxyDetails(request):
     rc = RequestContext(request)
     rc.get('proxyDetails')
+    
+def contactForm(request):
+    return render(
+        request,
+        "contact.html"
+    )
+def sendContact(request):
+    payload = getJsonPayload(request)
+    
+    try:
+        message = sendEmail(
+            recipient="cassadyeleanor@gmail.com",
+            subject="New Inquiry from abc.elliecee.xyz",
+            context=payload,
+            templatePrefix="contact-notification",
+            replyTo=payload.get("email"),
+        )
+    except:
+        logger.error(traceback.format_exc())
+        return jsonResponse(
+            {
+                "message":"error!"
+            },
+        
+            204
+        )
+    return jsonResponse(
+        {
+            "message":"hooray",
+        },
+        200
+    )

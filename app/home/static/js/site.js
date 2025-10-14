@@ -162,6 +162,9 @@ class JsForm extends Esc {
     hasObjectId() {
         return (this.objectId!=null && this.objectId!="");
     }
+    hostFor() {
+        let params = new URLSearchParams(location.search);
+    }
     render(isLoaded=true) {
         this.target().innerHTML = `
             <form id="${this.formName()}" class="jsform ${isLoaded?'loaded':''}">
@@ -256,13 +259,23 @@ class JsForm extends Esc {
         }
         notyf.error(message)
     }
-    
+    loading() {
+        this.loaded(false)
+    }
     loaded(loaded=true) {
         
         if (loaded) {
             this.formTarget().classList.add("loaded")
         } else {
             this.formTarget().classList.remove("loaded")
+        }
+    }
+    proxyUrlFor(path) {
+        
+        if (location.host.includes("127.0.0.1")) {
+            return `/shopify-proxy/${path}`
+        } else {
+            return `/apps/xyz/${path}`
         }
     }
     dispatchEvent(thisEventName,detail=null) {

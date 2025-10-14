@@ -385,7 +385,7 @@ class AppointmentRequest(models.Model):
     # meta data
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated At"))
-    extra = models.JSONField(default={})
+    extra = models.JSONField(default=dict)
 
     class Meta:
         verbose_name = _("Appointment Request")
@@ -512,7 +512,7 @@ class AppointmentRescheduleHistory(models.Model):
         verbose_name=_("Updated At"),
         help_text=_("The date and time the reschedule was confirmed.")
     )
-    extra = models.JSONField(default={})
+    
 
     class Meta:
         verbose_name = _("Appointment Reschedule History")
@@ -599,6 +599,8 @@ class Appointment(models.Model):
     # meta datas
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated At"))
+    
+    extra = models.JSONField(default=dict)
 
     class Meta:
         verbose_name = _("Appointment")

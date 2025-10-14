@@ -99,7 +99,7 @@ class SearchableDict:
             else:
                 logger.info(ret)
                 
-def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",sender=os.environ.get("DEFAULT_EMAIL")) ->EmailStatus:
+def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",sender=os.environ.get("DEFAULT_EMAIL"),replyTo=None) ->EmailStatus:
     context["year"] = datetime.now().year   
     msg = EmailMultiAlternatives(
         subject,
@@ -109,7 +109,9 @@ def sendEmail(recipient=None,subject="helloes",context={},templatePrefix="base",
         ),
         sender,
         [recipient],
+        reply_to=[] if replyTo is None else [replyTo]
     )
+    
     msg.attach_alternative(
         render_to_string(
             f"email/{templatePrefix}.html",
