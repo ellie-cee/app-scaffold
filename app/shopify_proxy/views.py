@@ -38,7 +38,7 @@ def contactForm(request):
     return render(
         request,
         "contact.html",
-        content_type=responseContentType()
+        content_type=responseContentType(request)
     )
 def sendContact(request):
     payload = getJsonPayload(request)
