@@ -67,7 +67,7 @@ class ContactForm extends JsForm {
             (event)=>{
                 this.loading()
                 this.post(
-                    "/contact/send",
+                    this.proxyUrlFor("/contact/send"),
                     this.serializeForm(this.formTarget())
                 ).then(response=>{
                     this.loginPayload = response;

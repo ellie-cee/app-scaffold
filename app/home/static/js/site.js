@@ -11,7 +11,7 @@ class Esc {
     constructUrl(path) {
         let rp = null;
         if (this.options.appHost) {
-            rp =  `${location.protocol} //${this.options.appHost}${path}`
+            rp =  `${location.protocol}//${this.options.appHost}${path}`
         } else {
             rp =  path;
         }
@@ -20,7 +20,7 @@ class Esc {
     }
     async get(url) {
         return fetch(
-            this.constructUrl(url),
+            url,
             {
                 method: 'POST',
                 credentials: 'include',
@@ -33,7 +33,7 @@ class Esc {
     async postRaw(url,body) {
         try {
         return fetch(
-            this.constructUrl(url),
+            url,
             {
                 method: 'POST',
                 credentials: 'include',
