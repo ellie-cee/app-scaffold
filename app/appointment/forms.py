@@ -56,7 +56,7 @@ class AppointmentForm(forms.ModelForm):
                 })
         self.fields['additional_info'].widget.attrs.update(
                 {
-                    'rows': 2,
+                    'rows': 10,
                     'class': 'form-control',
                 })
         self.fields['address'].widget.attrs.update(
