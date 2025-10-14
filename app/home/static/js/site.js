@@ -18,6 +18,7 @@ class Esc {
             rp =  path;
         }
         console.error(rp);
+        return rp;
     }
     async get(url) {
         return fetch(
