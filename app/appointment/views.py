@@ -60,7 +60,7 @@ logger = get_logger(__name__)
 
 def urlFor(request,path):
     if request.GET.get("signature") and request.GET.get("shop"):
-        return f"/apps/xyz/apointment{path}"
+        return f"/apps/xyz/appointment{path}"
     else:
         return f"//{os.environ.get('APP_HOST')}/shopify-proxy/appointment{path}"
 
