@@ -7,6 +7,7 @@ Since: 1.0.0
 """
 
 from datetime import date, timedelta
+import os
 
 from django.contrib import messages
 from django.contrib.auth import login
@@ -56,7 +57,12 @@ from shopify_proxy.views import responseContentType
 CLIENT_MODEL = get_user_model()
 
 logger = get_logger(__name__)
-    
+
+def urlFor(request,path):
+    if request.GET.get("signature") and request.GET.get("shop"):
+        return f"/apps/xyz/apointment{path}"
+    else:
+        return f"//{os.environ.get('APP_HOST')}/shopify-proxy/appointment{path}"
 
 @csrf_exempt
 def get_available_slots_ajax(request):
