@@ -12,6 +12,6 @@
     
 </div>
 <script>
-    window.contactForm = new ContactForm({objectId:null});
+    window.contactForm = new ContactForm({appHost:"{{ env.APP_HOST }}"});
 </script>
 {% endblock %}
