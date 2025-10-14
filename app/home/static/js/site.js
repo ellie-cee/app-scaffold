@@ -281,6 +281,7 @@ class JsForm extends Esc {
     }
     proxyUrlFor(path) {
         let params = new URLSearchParams(location.search)
+        console.error(params)
         if (params.get("shop") && params.get("signature")) {
             return `/apps/xyz/${path}`
             
