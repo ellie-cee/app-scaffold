@@ -33,13 +33,15 @@ def test(request):
 def getProxyDetails(request):
     rc = RequestContext(request)
     rc.get('proxyDetails')
-    
+
+@validProxy
 def contactForm(request):
     return render(
         request,
         "contact.html",
         content_type=responseContentType(request)
     )
+    
 def sendContact(request):
     payload = getJsonPayload(request)
     

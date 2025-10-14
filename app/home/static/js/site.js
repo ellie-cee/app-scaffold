@@ -9,13 +9,15 @@ class Esc {
         this.config = {...this.defaults(),...options}
     }
     constructUrl(path) {
+        let rp = null;
         if (path.includes("http")) {
-            return path;
+            rp = path;
         } else if (this.options.appHost) {
-            return `//${this.options.appHost}${path}`
+            rp =  `//${this.options.appHost}${path}`
         } else {
-            return path;
+            rp =  path;
         }
+        console.error(rp);
     }
     async get(url) {
         return fetch(

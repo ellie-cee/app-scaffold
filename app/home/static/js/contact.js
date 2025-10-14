@@ -71,12 +71,14 @@ class ContactForm extends JsForm {
                     this.serializeForm(this.formTarget())
                 ).then(response=>{
                     this.loginPayload = response;
+                    console.error(response)
                     this.loaded()
                     switch(response.status) {
                         case 200:
                             this.sent = true;
-                            break;
                             this.render()
+                            break;
+                            
                         case 204:
                             this.showError("Unable to send right now? Please try again later. In the meantime, this has been logged. Sorry!")
                         case 404:
