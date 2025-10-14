@@ -28,7 +28,6 @@ class Esc {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
                 },
             }
         ).then(response=>response.json())
@@ -42,7 +41,6 @@ class Esc {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
                 },
                 body:body
             }
