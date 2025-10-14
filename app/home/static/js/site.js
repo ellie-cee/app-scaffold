@@ -8,9 +8,18 @@ class Esc {
     constructor(options) {
         this.config = {...this.defaults(),...options}
     }
+    constructUrl(path) {
+        if (path.includes("http")) {
+            return path;
+        } else if (this.options.appHost) {
+            return `${this.options.appHost}${path}`
+        } else {
+            return path;
+        }
+    }
     async get(url) {
         return fetch(
-            url,
+            this.constructUrl(url),
             {
                 method: 'POST',
                 credentials: 'include',
@@ -24,7 +33,7 @@ class Esc {
     async postRaw(url,body) {
         try {
         return fetch(
-            url,
+            this.constructUrl(url),
             {
                 method: 'POST',
                 credentials: 'include',
@@ -41,7 +50,7 @@ class Esc {
     }
     async post(url,payload) {
         return this.postRaw(
-            url,
+            this.constructUrl(url),
             JSON.stringify(payload)
         ).then(response=>response.json())
     }
@@ -165,11 +174,12 @@ class JsForm extends Esc {
     hostFor() {
         let params = new URLSearchParams(location.search);
     }
+    
     render(isLoaded=true) {
         this.target().innerHTML = `
             <form id="${this.formName()}" class="jsform ${isLoaded?'loaded':''}">
                 <div class="form-loading">
-                    <img src="/static/img/loading.gif">
+                    <img src="${this.constructUrl('/static/img/loading.gif')}">
                 </div>
                 <div class="form-progress"></div>
                 <div>
