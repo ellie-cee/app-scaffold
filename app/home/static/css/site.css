@@ -544,3 +544,14 @@ a {
     font-size: 24px;
   }
 }
+@media screen and (max-width: 400px) {
+  .formrow {
+    flex-direction: column;
+  }
+  .main-content {
+    font-size:24px;
+  }
+  input, textarea {
+    font-size: 24px;
+  }
+}
