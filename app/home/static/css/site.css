@@ -534,24 +534,33 @@ a {
     width:100%;
   }
 @media screen and (max-width: 700px) {
-  .formrow {
+ .formrow {
     flex-direction: column;
   }
   .main-content {
-    font-size:24px;
+    font-size:24px!important;
   }
   input, textarea {
-    font-size: 24px;
+    font-size: 24px!important;
+  }
+  button {
+    font-size:32px!important;
   }
 }
 @media screen and (max-width: 400px) {
+  body {
+    font-size: 24px!important;
+  }
   .formrow {
     flex-direction: column;
   }
   .main-content {
-    font-size:24px;
+    font-size:24px!important;
   }
   input, textarea {
-    font-size: 24px;
+    font-size: 24px!important;
+  }
+  button {
+    font-size:32px!important;
   }
 }
