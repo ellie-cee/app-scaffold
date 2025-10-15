@@ -6,6 +6,9 @@
         width:75%;
         margin:auto;
     }
+    #contactForm:has(input[name="email-sent"]) .for-unsent {
+        display: none;
+    }
 </style>
 <script src="//{{ env.APP_HOST}}/static/js/contact.js"></script>
 <div class="jsapp">
