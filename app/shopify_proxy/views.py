@@ -6,6 +6,7 @@ from home.views import getJsonPayload,jsonResponse
 from home.lmno import sendEmail
 from logging import Logger
 import os
+from django.views.decorators.csrf import csrf_exempt
 
 logger = Logger(__name__)
 
@@ -42,6 +43,7 @@ def contactForm(request):
         content_type=responseContentType(request)
     )
     
+@csrf_exempt
 def sendContact(request):
     payload = getJsonPayload(request)
     
