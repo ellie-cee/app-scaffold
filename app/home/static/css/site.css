@@ -533,3 +533,12 @@ a {
 }
 
 /* poop */
+
+@media screen and (max-width: 720px) {
+  .formrow {
+    flex-direction: column;
+  }
+  .main-content {
+    font-size:24px;
+  }
+}
