@@ -541,4 +541,7 @@ a {
   .main-content {
     font-size:24px;
   }
+  input, textarea {
+    font-size: 24px;
+  }
 }
