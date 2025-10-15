@@ -534,7 +534,7 @@ a {
 
 /* poop */
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 700px) {
   .formrow {
     flex-direction: column;
   }
