@@ -3,7 +3,10 @@ body {
   margin: 0px;
 }
 
-
+:root {
+  --color-background: 242, 245, 255;
+  --color-foreground: 27, 88, 88;
+}
 
 .esc-modal {
     position:absolute;
