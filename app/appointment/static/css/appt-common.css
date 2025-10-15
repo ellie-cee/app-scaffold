@@ -113,7 +113,7 @@
 
 .djangoAppt_appointment-slot {
     border: 1px solid #ccc;
-    background-color: var(--color-foreground);
+    background-color: #1b5858;
     color: #fff;
     padding: 7px;
     margin-bottom: 6px;
@@ -122,13 +122,13 @@
 }
 
 .djangoAppt_appointment-slot:hover {
-    background-color: var(--color-background);
+    background-color: #c1ffff;
     color: rgba(42, 42, 42, 0.82);
 }
 
 .selected {
     
-    color: var(--color-foreground);
+    color: #1b5858;
 }
 
 .djangoAppt_next-available-date {
@@ -154,13 +154,13 @@
 /* Change the color of the buttons when hovered */
 .fc-button:hover {
     background-color: #c1ffff !important;
-    border-color: var(--color-foreground)
+    border-color: #1b5858
 }
 
 /* Change the color of the buttons when active or focused */
 .fc-button:active, .fc-button:focus {
     background-color: #1b5858 !important;
-    border-color: var(--color-background)
+    border-color: #c1ffff
 }
 
 .djangoAppt_date_chosen {
