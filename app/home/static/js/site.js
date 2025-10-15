@@ -23,6 +23,7 @@ class Esc {
             url,
             {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -35,6 +36,7 @@ class Esc {
             url,
             {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Credentials':'true'
