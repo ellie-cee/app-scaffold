@@ -110,14 +110,14 @@
         const timezone = "{{ timezoneTxt }}";
         const locale = "{{ locale }}";
         const availableSlotsAjaxURL = "//{{ env.APP_HOST}}/appointment/ajax/available_slots/";
-        const requestNextAvailableSlotURLTemplate = "{% url 'appointment:request_next_available_slot' service_id=0 %}";
+        const requestNextAvailableSlotURLTemplate = "//{{ env.APP_HOST}}/appointment/ajax/request_next_available_slot/1/?staff_member=1";
         const getNonWorkingDaysURL = "//{{ env.APP_HOST}}/appointment/ajax/request_staff_info/";
         const serviceId = "{{ service.id }}";
         const serviceDuration = parseInt("{{ service.duration.total_seconds }}") / 60;
         const rescheduledDate = "{{ rescheduled_date }}";
         const appointmentRequestId = "{{ ar_id_request }}";
         const appointmentRequestSubmitURL = "{{ create_appointment }}";
-        const appointmentRescheduleURL = "{% url 'appointment:reschedule_appointment_submit' %}";
+        const appointmentRescheduleURL = "//{{ env.APP_HOST}}/appointment-reschedule-submit/"
     </script>
     <script>
         const requestNonAvailableSlotBtnTxt = "{% trans 'Request next available slot' %}";

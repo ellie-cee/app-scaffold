@@ -1,12 +1,11 @@
-class Esc {
+class GraphQl {
     defaults() {
         return {
             "debug":true,
             "injection_point":".Esc-app",
         };
     }
-    constructor(options) {
-        this.config = {...this.defaults(),...options}
+    constructor() {
         this.api_version = "2025-10"
     }
     constructUrl(path) {
@@ -120,6 +119,8 @@ class Esc {
             break;
         }
     }
+}
+class Esc { 
     async get(url) {
         return fetch(
             url,
