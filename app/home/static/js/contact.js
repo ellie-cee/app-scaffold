@@ -11,7 +11,7 @@ class ContactForm extends JsForm {
     }
     formContents() {
         if (this.sent) {
-            return `I'll get back to you as soon possible :)
+            return `<h2>I'll get back to you as soon possible :)</h2>
                 <input type="hidden" name="email-sent" value="1">
             `
         } else {

@@ -30,6 +30,7 @@ urlpatterns = [
     path('',include('home.urls')),
     path('',include('site_auth.urls')),
     path('shopify-proxy/appointment/', include('appointment.urls')),
+    path('appointment/',include('appointment.urls'))
  ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
