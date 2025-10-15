@@ -360,6 +360,10 @@
 
 /* CSS for screens smaller or equal to 768px */
 @media (max-width: 450px) {
+    .djangoAppt_appointment-calendar-title-timezone, .fc-toolbar {
+        flex-direction: column!important;
+    }
+
     .djangoAppt_main-container {
         padding: 3px;
     }
@@ -398,7 +402,7 @@
 
     /* Reduce font size for smaller screens */
     .djangoAppt_title, .djangoAppt_item-name, .djangoAppt_date_chosen, .djangoAppt_next-available-date {
-        font-size: 13px;
+        font-size: 24px;
     }
 
     .djangoAppt_timezone-details, .error-message {
@@ -409,8 +413,11 @@
         font-size: 11px;
     }
 
+    
+
     .fc-toolbar-title {
-        font-size: 14px !important;
+        font-size: 32px !important;
+        padding: 9px;
     }
 
     .fc {
