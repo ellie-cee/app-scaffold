@@ -50,7 +50,7 @@ def sendContact(request):
     try:
         message = sendEmail(
             recipient="cassadyeleanor@gmail.com",
-            subject="New Inquiry from abc.elliecee.xyz",
+            subject=f"New Inquiry from {payload.get('name')}",
             context=payload,
             templatePrefix="contact-notification",
             replyTo=payload.get("email"),
