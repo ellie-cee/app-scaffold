@@ -65,7 +65,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'shopify_sites.middleware.LoginProtection',
-    'shopify_sites.middleware.ShopifyEmbed'
+    'shopify_sites.middleware.ShopifyEmbed',
+    'xyz.middleware.CorsHeaders'
 ]
 
 CACHES = {
