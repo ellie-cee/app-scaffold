@@ -133,17 +133,7 @@ form.jsform {
   display: flex;
   flex-direction: column;
   
-  .formrow {
-    display: flex;
-    gap: 16px;
-  }
-
-  .formrow .formField {
-    display:flex;
-    flex-direction: column;
-    gap:8px;
-    width:100%;
-  }
+ 
   
   .form-loading,.form-progress {
     display:flex;
@@ -532,8 +522,17 @@ a {
   font-size: 18px;
 }
 
-/* poop */
+ .formrow {
+    display: flex;
+    gap: 16px;
+  }
 
+  .formrow .formField {
+    display:flex;
+    flex-direction: column;
+    gap:8px;
+    width:100%;
+  }
 @media screen and (max-width: 700px) {
   .formrow {
     flex-direction: column;
