@@ -39,7 +39,6 @@ class Esc {
                 credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Credentials':'true'
                 },
                 body:body
             }
