@@ -574,4 +574,10 @@ a {
   button {
     font-size:32px!important;
   }
+  .main-content {
+    width:100%;
+  }
+  .jsapp {
+    width: 95%;
+  }
 }
