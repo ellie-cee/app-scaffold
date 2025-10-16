@@ -586,4 +586,7 @@ a {
     justify-content: center;
     margin-top: 32px;
   }
+  form.jsform .formfooter {
+    justify-content: center;
+  }
 }
