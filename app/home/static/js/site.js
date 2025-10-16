@@ -465,6 +465,16 @@ class JsForm extends Esc {
             form.appendChild(input)
         }
     }
+    constructUrl(path) {
+        let rp = null;
+        if (this.options.appHost) {
+            rp =  `${location.protocol}//${this.options.appHost}${path}`
+        } else {
+            rp =  path;
+        }
+        console.error(rp);
+        return rp;
+    }
 
 }
 
