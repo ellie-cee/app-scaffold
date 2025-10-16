@@ -164,6 +164,9 @@ form.jsform {
       justify-content:space-around;
         gap: 16px;
         min-width: 50%;
+        @media screen and (max-width: 400px) {
+          justify-content: center;
+        }
         button.delete {
           background-color: #900;
         }
