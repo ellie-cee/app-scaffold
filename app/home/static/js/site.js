@@ -286,7 +286,7 @@ class JsForm extends Esc {
                     <img src="${this.constructUrl('/static/img/loading.gif')}">
                 </div>
                 <div class="form-progress"></div>
-                <div>
+                <div class="form-header-wrapper">
                     <h1 id="formHeader">
                         ${this.formHeader()}
                     </h1>

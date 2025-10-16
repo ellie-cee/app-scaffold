@@ -579,5 +579,11 @@ a {
   }
   .jsapp {
     width: 95%;
+    margin-bottom: 32px;
+  }
+  .form-header-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
   }
 }
