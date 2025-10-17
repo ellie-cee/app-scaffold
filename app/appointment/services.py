@@ -7,6 +7,7 @@ Since: 2.0.0
 """
 
 import datetime
+import json
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,6 +15,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _, gettext_lazy as _
+from home.lmno import jsonify
 
 from appointment.forms import PersonalInformationForm, ServiceForm, StaffDaysOffForm, StaffWorkingHoursForm
 from appointment.messages_ import appt_updated_successfully
@@ -434,7 +436,14 @@ def get_available_slots_for_staff(date, staff_member, day_of_week: int):
     slots = exclude_pending_reschedules(slots, staff_member, date)
     appointments = get_appointments_for_date_and_time(date, working_hours_dict['start_time'],
                                                       working_hours_dict['end_time'], staff_member)
-    return exclude_booked_slots(appointments, slots, slot_duration)
+    
+    finalSlots =  exclude_booked_slots(appointments, slots, slot_duration)
+    availableSlots = exclude_booked_slots(appointments, slots, slot_duration)
+    
+    return list(
+        map(lambda slot:{"slot":slot.strftime('%I:%M %p'),"booked":True if slot not in availableSlots else False},slots)
+    )
+    return finalSlots
 
 
 def get_finish_button_text(service) -> str:

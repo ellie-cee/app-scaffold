@@ -131,6 +131,8 @@ def modelToJson(model):
 def jsonify(value):
         if isinstance(value,models.Model):
             return jsonify(modelToJson(value))
+        elif isinstance(value,datetime):
+            return str(value)
         elif isinstance(value,dict):
             ret = {}
             for key,value in value.items():

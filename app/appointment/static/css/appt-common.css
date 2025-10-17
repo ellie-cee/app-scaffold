@@ -121,9 +121,24 @@
     border-radius: 4px;
 }
 
+.djangoAppt_appointment-slot[data-booked="true"] {
+    background-color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .djangoAppt_appointment-slot:hover {
     background-color: #c1ffff;
     color: rgba(42, 42, 42, 0.82);
+}
+.fc-daygrid-day-top a {
+    cursor:pointer!important;
+}
+.fc-daygrid-day {
+    cursor: pointer;
+}
+.fc-daygrid-day.disabled-day {
+    cursor: default;
 }
 
 .selected {
@@ -360,6 +375,7 @@
 
 /* CSS for screens smaller or equal to 768px */
 @media (max-width: 450px) {
+    
     .djangoAppt_appointment-calendar-title-timezone, .fc-toolbar {
         flex-direction: column!important;
     }
@@ -431,6 +447,11 @@
     .djangoAppt_appointment-slot {
         padding: 5px;
         font-size: 13px;
+    }
+    .djangoAppt_appointment-slot[data-booked="true"] {
+        background-color:#888;
+        pointer-events: none;
+        cursor:not-allowed;
     }
 
     .djangoAppt_service-description {

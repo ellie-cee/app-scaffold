@@ -107,6 +107,7 @@ function highlightSelectedDate() {
 }
 
 body.on('click', '.djangoAppt_btn-request-next-slot', function () {
+    
     const serviceId = $(this).data('service-id');
     requestNextAvailableSlot(serviceId);
 })
@@ -279,6 +280,7 @@ function getAvailableSlots(selectedDate, staffId = null) {
         data: ajaxData,
         dataType: 'json',
         success: function (data) {
+            console.error(data)
             if (data.available_slots.length === 0) {
                 const selectedDateObj = moment.tz(selectedDate, timezone);
                 const selectedD = selectedDateObj.toDate();
@@ -311,10 +313,13 @@ function getAvailableSlots(selectedDate, staffId = null) {
                 // remove the button to request for next available slot
                 $('.djangoAppt_no-availability-text').remove();
                 $('.djangoAppt_btn-request-next-slot').remove();
+                
                 const uniqueSlots = [...new Set(data.available_slots)]; // remove duplicates
-                for (let i = 0; i < uniqueSlots.length; i++) {
-                    slotList.append('<li class="djangoAppt_appointment-slot">' + uniqueSlots[i] + '</li>');
-                }
+                slotButtons = uniqueSlots.map(slot=>`
+                    <li class="djangoAppt_appointment-slot" data-booked="${slot.booked}">${slot.booked?'Booked':slot.slot}</li>
+                `).join("\n")
+                slotList[0].innerHTML = slotButtons;
+                
 
                 // Attach click event to the slots
                 $('.djangoAppt_appointment-slot').on('click', function () {
@@ -345,7 +350,8 @@ function getAvailableSlots(selectedDate, staffId = null) {
 }
 
 function requestNextAvailableSlot(serviceId) {
-    const requestNextAvailableSlotURL = requestNextAvailableSlotURLTemplate.replace('0', serviceId);
+    console.error(requestNextAvailableSlotURLTemplate)
+    const requestNextAvailableSlotURL = requestNextAvailableSlotURLTemplate.replace('<service>', serviceId);
     if (staffId === null) {
         return;
     }
@@ -358,6 +364,7 @@ function requestNextAvailableSlot(serviceId) {
         dataType: 'json',
         success: function (data) {
             // If there's an error, just log it and return
+            console.error(data)
             let nextAvailableDateResponse = null;
             let formattedDate = null;
             if (data.error) {

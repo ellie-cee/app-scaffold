@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from typing import Dict
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -47,12 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    #'django_redis',
+    'django_redis',
     'home.apps.HomeConfig',
     'site_auth.apps.AuthConfig',
     'shopify_sites.apps.ShopifySitesConfig',
     "shopify_proxy.apps.ShopifyProxyConfig",
-    "appointment"
+    "appointment",
+    "django_q"
 ]
 
 MIDDLEWARE = [
@@ -72,10 +75,10 @@ MIDDLEWARE = [
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",  # Replace with your Redis URL
+        "LOCATION": "redis://127.0.0.1:6379/0",  # Replace with your Redis URL
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", # Optional compression
+            #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", # Optional compression
         }
     }
 }
@@ -267,6 +270,22 @@ APPOINTMENT_LEAD_TIME = (9, 0)  # Can be set in the Config Model. Start time of 
 APPOINTMENT_FINISH_TIME = (16, 30)  # Can be set in the Config Model. End time of the appointment slots (in 24-hour format)
 USE_DJANGO_Q_FOR_EMAILS = False  # 🆕 Use Django Q for sending ALL emails.
 DJANGO_Q_AVAILABLE = False
+
+Q_CLUSTER = {
+    'name': 'DJRedis',
+    'workers': 4,
+    'timeout': 90,
+    'django_redis': 'default',
+    'scheduler':True,
+    'retry':60,
+    'timeout':30,
+    'catch_up':True,
+    'redis':{
+        'host':'127.0,0.1',
+        'port':6379,
+        'db':0
+    }
+}
 
 
 #wat

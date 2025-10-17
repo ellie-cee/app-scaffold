@@ -112,7 +112,7 @@
         const timezone = "{{ timezoneTxt }}";
         const locale = "{{ locale }}";
         const availableSlotsAjaxURL = "//{{ env.APP_HOST}}/appointment/ajax/available_slots/";
-        const requestNextAvailableSlotURLTemplate = "//{{ env.APP_HOST}}/appointment/ajax/request_next_available_slot/1/?staff_member=1";
+        const requestNextAvailableSlotURLTemplate = "//{{ env.APP_HOST}}/appointment/ajax/request_next_available_slot/<service>/?staff_member=1";
         const getNonWorkingDaysURL = "//{{ env.APP_HOST}}/appointment/ajax/request_staff_info/";
         const serviceId = "{{ service.id }}";
         const serviceDuration = parseInt("{{ service.duration.total_seconds }}") / 60;

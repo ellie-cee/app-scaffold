@@ -6,7 +6,7 @@ Author: Adams Pierre David
 Since: 1.0.0
 """
 
-from datetime import date, timedelta
+from datetime import date, timedelta,datetime
 import os
 
 from django.contrib import messages
@@ -23,6 +23,8 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.timezone import get_current_timezone_name
 from django.utils.translation import gettext as _
 from home.lmno import jsonify
+from dateutil import parser
+import pytz
 
 from appointment.forms import AppointmentForm, AppointmentRequestForm, ClientDataForm, SlotForm
 from appointment.logger_config import get_logger
@@ -55,6 +57,9 @@ from django.views.decorators.csrf import csrf_exempt
 from .utils.json_context import get_generic_context_with_extra, json_response
 from shopify_proxy.views import responseContentType
 CLIENT_MODEL = get_user_model()
+from zoneinfo import ZoneInfo
+from xyz import settings
+
 
 logger = get_logger(__name__)
 
@@ -115,10 +120,15 @@ def get_available_slots_ajax(request):
 
     # Check if the selected_date is today and filter out past slots
     if selected_date == date.today():
-        current_time = timezone.now().time()
-        available_slots = [slot for slot in available_slots if slot.time() > current_time]
-
-    custom_data['available_slots'] = [slot.strftime('%I:%M %p') for slot in available_slots]
+        current_time = datetime.now(ZoneInfo(settings.TIME_ZONE))
+        available_slots = [slot for slot in available_slots if parser.parse(slot.get('slot')).replace(tzinfo=pytz.timezone(settings.TIME_ZONE)) > current_time]
+        if len(available_slots)>0:
+            if len(list(filter(lambda x:not x.get("booked"),available_slots)))<=len(available_slots):
+                available_slots = []
+        
+        
+    custom_data['available_slots'] = available_slots
+    #custom_data['available_slots'] = [slot.strftime('%I:%M %p') for slot in available_slots]
     if len(available_slots) == 0:
         custom_data['error'] = True
         custom_data['date_iso'] = selected_date.isoformat()
@@ -443,12 +453,12 @@ def enter_verification_code(request, appointment_request_id, id_request):
         code = request.POST.get('code')
         user = get_user_by_email(email)
         
-        print(email)
+        
 
         if verify_user_and_login(request, user, code):
             appointment_request_object = AppointmentRequest.objects.get(pk=appointment_request_id)
             appointment_data = get_appointment_data_from_session(request)
-            print(request.session,appointment_data)
+            
             response = create_appointment(request=request, appointment_request_obj=appointment_request_object,
                                           client_data={'email': email}, appointment_data=appointment_data)
             return response

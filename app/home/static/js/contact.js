@@ -65,27 +65,8 @@ class ContactForm extends JsForm {
         this.listenFor(
             "send-message",
             (event)=>{
-                this.loading()
-                this.post(
-                    "https://abc.apps.elliecee.xyz/contact/send",
-                    this.serializeForm(this.formTarget())
-                ).then(response=>{
-                    this.loginPayload = response;
-                    console.error(response)
-                    this.loaded()
-                    switch(response.status) {
-                        case 200:
-                            this.sent = true;
-                            this.render()
-                            break;
-                            
-                        case 204:
-                            this.showError("Unable to send right now? Please try again later. In the meantime, this has been logged. Sorry!")
-                        case 404:
-                            this.showError(response.message)
-                            break;
-                    }
-                    this.render()
+                grecaptcha.enterprise.ready(async () => {
+                    const token = await grecaptcha.enterprise.execute('6Lc51OwrAAAAANAeXGG_HwWmq-AFbnbEAI0Ym6vN', {action: 'LOGIN'});
                 });
             }
         );
@@ -94,7 +75,7 @@ class ContactForm extends JsForm {
         if (this.sent) {
             return "Thank you!"
         } else {
-            return `Contact Eleanor`
+            return `Contact Ellie`
         }
     }
 }
