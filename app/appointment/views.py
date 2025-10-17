@@ -101,7 +101,7 @@ def get_available_slots_ajax(request):
     
     
     if BlackoutDay.objects.filter(blackout_on=selected_date).count()>0:
-        message = _("This date is reserved")
+        message = _("Out of Office")
         custom_data['available_slots'] = []
         custom_data['date_iso'] = selected_date.isoformat()
         return json_response(message=message, custom_data=custom_data, success=False, error_code=ErrorCode.INVALID_DATE)
