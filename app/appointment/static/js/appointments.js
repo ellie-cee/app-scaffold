@@ -190,7 +190,7 @@ function fetchNonWorkingDays(staffId, callback) {
         success: function (data) {
             
             if (data.error) {
-                
+                console.error('Error fetching non-working days:', data.message);
                 callback([]);
             } else {
                 nonWorkingDays = data.non_working_days;
@@ -236,7 +236,9 @@ function getAvailableSlots(selectedDate, staffId = null) {
     const errorMessageContainer = $('.error-message');
 
     // Clear previous error messages and slots
-    slotList.empty();
+    
+    slotList[0].innerHTML=`<img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif">`
+    
     errorMessageContainer.find('.djangoAppt_no-availability-text').remove();
 
     // Remove the "Next available date" message
