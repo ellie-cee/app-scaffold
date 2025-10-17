@@ -7,9 +7,12 @@
 }
 .slots-loading {
     display: none;
+    width: 100%;
+    justify-content: center;
+
 }
 .slots-loading.active {
-    display: block;
+    display: flex;
 }
 
 @media (max-width: 450px) {
