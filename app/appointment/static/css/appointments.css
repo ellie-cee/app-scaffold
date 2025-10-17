@@ -2,6 +2,16 @@
     overflow: hidden !important;
 }
 
+.slot-container:has(li.djangoAppt_appointment-slot) .error-message {
+    display: none;
+}
+.slots-loading {
+    display: none;
+}
+.slots-loading.active {
+    display: block;
+}
+
 @media (max-width: 450px) {
     .fc-daygrid-day-events {
         display: none !important;

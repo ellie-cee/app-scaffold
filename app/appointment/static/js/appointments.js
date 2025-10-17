@@ -232,13 +232,13 @@ function formatTime(date) {
 function getAvailableSlots(selectedDate, staffId = null) {
     // Update the slot list with the available slots for the selected date
     const slotList = $('#slot-list');
+    const loadingIndicator = document.querySelector(".slots-container .slots-loading");
     const slotContainer = $('.slot-container');
     const errorMessageContainer = $('.error-message');
 
     // Clear previous error messages and slots
     
-    slotList[0].innerHTML=`<li class="djangoAppt_appointment-slot"><img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif"></li>`
-    //slotList.empty()
+    slotList.empty()
 
     errorMessageContainer.find('.djangoAppt_no-availability-text').remove();
 
@@ -278,12 +278,14 @@ function getAvailableSlots(selectedDate, staffId = null) {
         return; // Exit the function if a request is already in progress
     }
     isRequestInProgress = true;
+    loadingIndicator.classList.add("active")
     $.ajax({
         url: availableSlotsAjaxURL,
         data: ajaxData,
         dataType: 'json',
         success: function (data) {
             console.error(data)
+            loadingIndicator.classList.remove("active");
             if (data.available_slots.length === 0) {
                 const selectedDateObj = moment.tz(selectedDate, timezone);
                 const selectedD = selectedDateObj.toDate();
@@ -347,6 +349,7 @@ function getAvailableSlots(selectedDate, staffId = null) {
             isRequestInProgress = false;
         },
         error: function() {
+            loadingIndicator.classList.remove("active")
             isRequestInProgress = false; // Ensure the flag is reset even if the request fails
         }
     });
