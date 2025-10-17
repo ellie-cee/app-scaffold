@@ -237,8 +237,8 @@ function getAvailableSlots(selectedDate, staffId = null) {
 
     // Clear previous error messages and slots
     
-    //slotList[0].innerHTML=`<li><img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif"></li>`
-    slotList.empty()
+    slotList[0].innerHTML=`<li class="djangoAppt_appointment-slot"><img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif"></li>`
+    //slotList.empty()
 
     errorMessageContainer.find('.djangoAppt_no-availability-text').remove();
 
