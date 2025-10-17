@@ -65,7 +65,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     },
     selectAllow: function (info) {
         const day = info.start.getDay();  // Get the day of the week (0 for Sunday, 6 for Saturday)
-        console.error("day is",day)
+        
         if (day<0 || day>4) {
             return false;  // Disallow selection for non-working days
         }
@@ -190,7 +190,7 @@ function fetchNonWorkingDays(staffId, callback) {
         success: function (data) {
             
             if (data.error) {
-                console.error('Error fetching non-working days:', data.message);
+                
                 callback([]);
             } else {
                 nonWorkingDays = data.non_working_days;
@@ -350,7 +350,7 @@ function getAvailableSlots(selectedDate, staffId = null) {
 }
 
 function requestNextAvailableSlot(serviceId) {
-    console.error(requestNextAvailableSlotURLTemplate)
+    
     const requestNextAvailableSlotURL = requestNextAvailableSlotURLTemplate.replace('<service>', serviceId);
     if (staffId === null) {
         return;
@@ -364,7 +364,7 @@ function requestNextAvailableSlot(serviceId) {
         dataType: 'json',
         success: function (data) {
             // If there's an error, just log it and return
-            console.error(data)
+            
             let nextAvailableDateResponse = null;
             let formattedDate = null;
             if (data.error) {

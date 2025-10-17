@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 from appointment.email_sender import notify_admin, send_email
 from appointment.logger_config import get_logger
 from appointment.models import Appointment
+from home.lmno import sendEmail
 
 logger = get_logger(__name__)
 

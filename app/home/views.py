@@ -10,7 +10,7 @@ from django.conf import settings
 from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
 from .lmno import EmailStatus,sendEmail
-
+from appointment.models import Appointment,StaffMember,AppointmentRequest
 
 logger = logging.Logger(__name__)
 
@@ -49,6 +49,10 @@ def install(request):
     shopifySite.save()
     return redirect("/")
 
+def testFake(request):
+    
+    
+    pass
 def testEmail(request):
     
     result:EmailStatus = sendEmail(

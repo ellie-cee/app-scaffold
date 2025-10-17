@@ -20,6 +20,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _, ngettext
 from phonenumber_field.modelfields import PhoneNumberField
+import datetime
 
 from appointment.utils.date_time import convert_minutes_in_human_readable_format, get_timestamp, get_weekday_num, \
     time_difference
@@ -926,6 +927,9 @@ class PaymentInfo(models.Model):
     def get_user_email(self):
         return self.appointment.client.email
 
+class BlackoutDay(models.Model):
+    blackout_on = models.DateField(auto_now_add=False,verbose_name="Black out this day",default=datetime.date.today,db_index=True)
+    name = models.CharField(max_length=255,default="Unnamed Event")
 
 class EmailVerificationCode(models.Model):
     """

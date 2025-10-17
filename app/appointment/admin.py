@@ -11,8 +11,14 @@ from django.contrib import admin
 
 from .models import (
     Appointment, AppointmentRequest, AppointmentRescheduleHistory, Config, DayOff, EmailVerificationCode,
-    PasswordResetToken, Service, StaffMember, WorkingHours
+    PasswordResetToken, Service, StaffMember, WorkingHours,BlackoutDay
 )
+
+@admin.register(BlackoutDay)
+class BlackoutAdmin(admin.ModelAdmin):
+    list_display = ('name', 'blackout_on')
+    search_fields = ('name',)
+    list_filter = ('blackout_on',)
 
 
 @admin.register(Service)

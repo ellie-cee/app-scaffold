@@ -31,7 +31,7 @@ from appointment.logger_config import get_logger
 from appointment.models import (
     Appointment, AppointmentRequest, AppointmentRescheduleHistory, Config, DayOff, EmailVerificationCode,
     PasswordResetToken, Service,
-    StaffMember
+    StaffMember,BlackoutDay
 )
 from appointment.settings import check_q_cluster
 from appointment.utils.db_helpers import (
@@ -98,6 +98,13 @@ def get_available_slots_ajax(request):
         'date_chosen': date_chosen,
         'date_iso': selected_date.isoformat()
     }
+    
+    
+    if BlackoutDay.objects.filter(blackout_on=selected_date).count()>0:
+        message = _("This date is reserved")
+        custom_data['available_slots'] = []
+        custom_data['date_iso'] = selected_date.isoformat()
+        return json_response(message=message, custom_data=custom_data, success=False, error_code=ErrorCode.INVALID_DATE)
 
     days_off_exist = check_day_off_for_staff(staff_member=sm, date=selected_date)
     if days_off_exist:
