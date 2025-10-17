@@ -237,8 +237,8 @@ function getAvailableSlots(selectedDate, staffId = null) {
 
     // Clear previous error messages and slots
     
-    slotList[0].innerHTML=`<img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif">`
-    
+    slotList[0].innerHTML=`<li><img src="https://abc.apps.elliecee.xyz/static/img/loading-circle.gif"></li>`
+
     errorMessageContainer.find('.djangoAppt_no-availability-text').remove();
 
     // Remove the "Next available date" message
