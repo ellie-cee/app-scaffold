@@ -232,7 +232,7 @@ function formatTime(date) {
 function getAvailableSlots(selectedDate, staffId = null) {
     // Update the slot list with the available slots for the selected date
     const slotList = $('#slot-list');
-    const loadingIndicator = document.querySelector(".slots-container .slots-loading");
+    const loadingIndicator = document.querySelector(".slot-container .slots-loading");
     const slotContainer = $('.slot-container');
     const errorMessageContainer = $('.error-message');
 
