@@ -74,7 +74,10 @@ def testEmail(request):
 def viewed(request):
     
     payload = getJsonPayload(request)
-    payload = payload | dict(request.headers)
+    payload = payload
+    for field in ["HTTP_HOST","REMOTE_ADDR",""]:
+        payload[field] = request.META.get(field)
+    
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
         subject="Site View",
