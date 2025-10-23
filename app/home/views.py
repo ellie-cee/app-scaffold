@@ -74,7 +74,7 @@ def viewed(request):
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
         subject="Site View",
-        context={"message":json.dumps(payload,indent=1)},
+        context={"message":f'{json.dumps(payload,indent=1)}'},
         sender="ellie@elliecee.xyz",
         templatePrefix="siteClick"
     )
