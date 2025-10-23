@@ -71,6 +71,7 @@ def testEmail(request):
 
 def viewed(request):
     payload = getJsonPayload(request)
+    payload = payload | dict(request.headers)
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
         subject="Site View",
