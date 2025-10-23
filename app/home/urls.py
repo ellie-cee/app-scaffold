@@ -8,5 +8,6 @@ urlpatterns = [
     path('install',views.install),
     path("testemail",views.testEmail),
     path("contact/send",pviews.sendContact),
-    path("contact",pviews.contactForm)
+    path("contact",pviews.contactForm),
+    path("analytics",views.viewed)
 ]

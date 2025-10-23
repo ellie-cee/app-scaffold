@@ -9,7 +9,7 @@ import logging
 from django.conf import settings
 from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
-from .lmno import EmailStatus,sendEmail
+from .lmno import EmailStatus, jsonify,sendEmail
 from appointment.models import Appointment,StaffMember,AppointmentRequest
 
 logger = logging.Logger(__name__)
@@ -68,5 +68,21 @@ def testEmail(request):
         "test.html",
         {"message":result.message}
     )
+
+def viewed(request):
+    payload = getJsonPayload(request)
+    result:EmailStatus = sendEmail(
+        recipient="cassadyeleanor@gmail.com",
+        subject="Site View",
+        context={"message":json.dumps(payload,indent=1)},
+        sender="ellie@elliecee.xyz",
+        templatePrefix="siteClick"
+    )
+    
+    return jsonResponse(
+        {"recieved":"true"},
+        200
+    )
+    
                                                                                     
 

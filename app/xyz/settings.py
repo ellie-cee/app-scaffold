@@ -75,11 +75,12 @@ MIDDLEWARE = [
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/0",  # Replace with your Redis URL
+        "LOCATION": "redis://127.0.0.1:6379/2",  # Replace with your Redis URL
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", # Optional compression
-        }
+        },
+        "TIMEOUT":None
     }
 }
 
@@ -105,8 +106,8 @@ TEMPLATES = [
     },
 ]
 
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-#SESSION_CACHE_ALIAS = "default"
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 WSGI_APPLICATION = 'xyz.wsgi.application'
 
@@ -276,16 +277,6 @@ Q_CLUSTER = {
     'workers': 4,
     'timeout': 90,
     'django_redis': 'default',
-    'scheduler':True,
-    'retry':60,
-    'timeout':30,
-    'catch_up':True,
-    'redis':{
-        'host':'127.0,0.1',
-        'port':6379,
-        'db':0
-    }
+    'catchup':True,
 }
-
-
 #wat

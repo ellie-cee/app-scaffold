@@ -191,6 +191,7 @@ class GraphQL:
             percentageRemaining = math.ceil((remaining/max)*100)
             if percentageRemaining<25:
                 log(f"throttling at {remaining}")
+                time.sleep(5)
         except:
             logger.error(json.dumps(retVal.data,indent=1))
         
