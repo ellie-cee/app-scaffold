@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.core.mail import EmailMultiAlternatives
 from .lmno import EmailStatus, jsonify,sendEmail
 from appointment.models import Appointment,StaffMember,AppointmentRequest
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.Logger(__name__)
 
@@ -68,8 +69,10 @@ def testEmail(request):
         "test.html",
         {"message":result.message}
     )
-
+    
+@csrf_exempt
 def viewed(request):
+    
     payload = getJsonPayload(request)
     payload = payload | dict(request.headers)
     result:EmailStatus = sendEmail(
