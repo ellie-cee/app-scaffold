@@ -1,5 +1,5 @@
 
-<div class="esc-iwt-entry {{ block.settings.direction }} active">
+<div class="esc-iwt-entry app-block {% if block.settings.direction !="inherit" %}{{ block.settings.direction }}{% endif %} active">
   <div class="esc-iwt-image">
     {%- if block.settings.image != empty -%}
         <img src="{{ block.settings.image |  image_url: height: 320  }}" height="320">
@@ -15,6 +15,22 @@
   </div>
 </div>
 {{ 'image-with-text.css' |  asset_url |  stylesheet_tag  }}
+{% if block.settings.direction == "inherit" %}
+  <script>
+    document.addEventListener("DOMContentLoaded",event=>{
+      document.querySelectorAll(".esc-iwt-wrapper")
+        .forEach(wrapper=>wrapper.querySelectorAll(".esc-iwt-entry").forEach((entry,index)=>{
+          if (index % 2 == 0) {
+            entry.classList.add("img-left");
+            entry.classList.remove("img-right");
+          } else {
+            entry.classList.add("img-right");
+            entry.classList.remove("img-left");
+          }
+        }));
+      });
+  </script>
+{% endif %}
 {% schema %}
 {
   "name": "Text With Image (ESC)",
@@ -22,8 +38,8 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image"},
     { "type": "text", "id": "title", "label": "Title" },
-    { "type": "inline_richtext", "id": "body", "label": "Body Text" },
-    { "type": "select", "id": "direction", "label": "Image placement", "options": [{"value":"img-left","label":"Left"},{"value":"img-right","label":"Right"}]} 
+    { "type": "richtext", "id": "body", "label": "Body Text" },
+    { "type": "select", "id": "direction", "label": "Image placement", "options": [{"value":"img-left","label":"Left"},{"value":"img-right","label":"Right"},{"value":"inherit","label":"inherit"}],"default": "inherit"} 
   ]
 }
 {% endschema %}

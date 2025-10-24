@@ -9,9 +9,11 @@
     padding-top:16px;
     align-items: start;
 }
-
+.esc-iwt-entry.img-left {
+    flex-direction: row!important;
+}
 .esc-iwt-entry.img-right {
-    flex-direction: row-reverse;
+    flex-direction: row-reverse!important;
 }
 
 .esc-iwt-image img {

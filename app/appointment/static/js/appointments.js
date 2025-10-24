@@ -401,6 +401,8 @@ function requestNextAvailableSlot(serviceId) {
             } else {
                 // If the .next-available-date element doesn't exist, create and append it
                 getAvailableSlots(data.next_available_date, 1)
+                document.querySelectorAll("td[data-date]").forEach(date=>date.classList.remove("selected-cell"))
+                document.querySelector(`td[data-date="${data.next_available_date}"]`)?.classList.add("selected=cell")
                 /*
                 const nextDateText = `<p class="djangoAppt_next-available-date">${nextAvailableDateText}</p>`;
                 $('.djangoAppt_btn-request-next-slot').after(nextDateText);
