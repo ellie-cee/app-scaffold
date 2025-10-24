@@ -1,0 +1,30 @@
+
+<div class="esc-iwt-entry {{ block.settings.direction }} active">
+  <div class="esc-iwt-image">
+    {%- if block.settings.image != empty -%}
+        <img src="{{ block.settings.image |  image_url: height: 320  }}" height="320">
+    {% endif %}
+  </div>
+  <div class="esc-iwt-details-wrapper">
+      <div class="esc-iwt-title">
+          <h2>{{  block.settings.title }}</h2>
+      </div>
+    <div class="esc-iwt-body">
+        {{ block.settings.body }}
+    </div>
+  </div>
+</div>
+{{ 'image-with-text.css' |  asset_url |  stylesheet_tag  }}
+{% schema %}
+{
+  "name": "Text With Image (ESC)",
+  "target": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image"},
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "inline_richtext", "id": "body", "label": "Body Text" },
+    { "type": "select", "id": "direction", "label": "Image placement", "options": [{"value":"img-left","label":"Left"},{"value":"img-right","label":"Right"}]} 
+  ]
+}
+{% endschema %}
+
