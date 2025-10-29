@@ -2,6 +2,7 @@ import os
 from django.apps import apps
 from django.urls import reverse
 import shopify
+from .models import ShopifySite
 
 class ConfigurationError(BaseException):
     pass
@@ -22,6 +23,14 @@ class LoginProtection(object):
         shopify.Session.setup(api_key=self.api_key, secret=self.api_secret)
 
     def __call__(self, request):
+        if request.GET.get("shop") is not None and request.GET.get("embedded") is not None:
+            if hasattr(request, 'session') and 'shopify' not in request.session:    
+                site = ShopifySite.objects.get(shopDomain=request.GET.get("shop"))
+                if site is not None:
+                    request.session["shopify"] = {
+                        "shop_url":f"{site.shopDomain}/admin",
+                        "access_token":site.accessToken
+                    }
         if hasattr(request, 'session') and 'shopify' in request.session:
             api_version = apps.get_app_config('shopify_sites').SHOPIFY_API_VERSION
             shop_url = request.session['shopify']['shop_url']

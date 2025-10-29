@@ -53,7 +53,7 @@ class ShopifySite(models.Model):
     def startSession(self):
         shopify.ShopifyResource.activate_session(
             shopify.Session(
-                f"{self.shopDomain}.myshopify.com/admin",
+                f"{self.shopDomain}/admin",
                 os.environ.get("API_VERSION"),
                 self.accessToken
             )
