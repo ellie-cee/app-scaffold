@@ -12,6 +12,12 @@ from django.core.mail import EmailMultiAlternatives
 from .lmno import EmailStatus, jsonify,sendEmail
 from appointment.models import Appointment,StaffMember,AppointmentRequest
 from django.views.decorators.csrf import csrf_exempt
+from xyz import settings
+from shopify_sites.decorators import shop_login_required
+from .models import ApplicationVariant
+import docx
+from docx.text.hyperlink import Hyperlink
+from django.http import FileResponse
 
 logger = logging.Logger(__name__)
 
@@ -70,18 +76,70 @@ def testEmail(request):
         {"message":result.message}
     )
     
+    
+@csrf_exempt
+@shop_login_required
+def showTagForm(request):
+    return render(
+        request,
+        "resume_form.html"
+    )
+
+
+@csrf_exempt
+@shop_login_required
+def tagResume(request):
+    prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
+    identifier = str(prospectiveEmployer.identifier)
+    doc = docx.Document(f"{settings.STATIC_ROOT}/doc/resume-template.docx")
+    selectedStyle = None
+    for style in doc.styles:
+        if "Hyperlink2" in str(style):
+            selectedStyle = style
+            break
+    paragraph = doc.add_paragraph(style=selectedStyle)
+    part = paragraph.part
+    r_id = part.relate_to(f"https://abc.elliecee.xyz/?srcId={identifier}", docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+    link = docx.oxml.shared.OxmlElement('w:hyperlink')
+    link.set(docx.oxml.shared.qn('r:id'), r_id, )
+    new_run = docx.text.run.Run(
+        docx.oxml.shared.OxmlElement('w:r'), paragraph
+    )
+    new_run.text = "https://abc.elliecee.xyz/butts"
+    new_run.style="Hyperlink"
+    link.append(new_run._element)
+    paragraph._p.append(link)
+    outputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{identifier}.docx"
+    doc.save(outputPath)
+    return FileResponse(open(outputPath, 'rb'), as_attachment=True, filename=f'eleanor-cassady-{identifier}.docx')
+    
+    
+    
+    
+    
+
 @csrf_exempt
 def viewed(request):
     
     payload = getJsonPayload(request)
-    payload = payload
-    for field in ["HTTP_HOST","REMOTE_ADDR",""]:
-        payload[field] = request.META.get(field)
+    sourceId = payload.get("srcId")
+    details = None
+    context = {
+        "sourceId":sourceId,
+        "location":payload.get("link"),
+        "lead":"None detected"   
+    }
+    if sourceId is not None:
+        try:
+            details = ApplicationVariant.objects.get(identifier=sourceId)
+            context["lead"] = details.name
+        except:
+            pass
     
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
         subject="Site View",
-        context={"message":f'{json.dumps(payload,indent=1)}'},
+        context=context,
         sender="ellie@elliecee.xyz",
         templatePrefix="siteClick"
     )

@@ -27,3 +27,10 @@ class SiteNav(models.Model,IdAware):
     
     class Meta:
         db_table="sitenav"
+        
+class ApplicationVariant(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    identifier = models.UUIDField(default=uuid.uuid4)
+    name = models.CharField(max_length=255)
+    
+    

@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="//abc.apps.elliecee.xyz/static/css/site.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
         <script src="https://abc.apps.ellecee.xyz/static/js/site.js"></script>
-        <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc51OwrAAAAANAeXGG_HwWmq-AFbnbEAI0Ym6vN"></script>
     </head>
     <body>
         {% include "csrf_token.html" %}
@@ -29,6 +28,5 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <input type="hidden" name="recaptcha_key" value="{{ env.RECAPTCHA_KEY }}" id="recaptcha">
     </body>
 </html>

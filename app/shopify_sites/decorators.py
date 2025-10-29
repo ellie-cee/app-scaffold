@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.core import serializers
 from . import views
-from home.models import ShopifySite
+from .models import ShopifySite
 
 def shop_login_required(fn):
     def wrapper(request, *args, **kwargs):

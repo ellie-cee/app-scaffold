@@ -1,0 +1,20 @@
+{% extends "shopify.html" %}
+{% block content %}
+
+<h1>Create Tagged Resume</h1>
+<form action="/resume/tag" method="post" class="jsform">
+    <div class="formBody">
+        <div class="formrow">
+            <div class="formField">
+                <label>Employer Name</label>
+                <input type="text" name="name" placeholder="..." required>
+            </div>
+        </div>
+    </div>
+    <div class="formfooter">
+        <div class="buttons">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
