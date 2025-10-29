@@ -18,7 +18,8 @@ from .models import ApplicationVariant
 import docx
 from docx.text.hyperlink import Hyperlink
 from django.http import FileResponse
-
+import datetime
+import random
 logger = logging.Logger(__name__)
 
 
@@ -106,6 +107,8 @@ def tagResume(request):
     prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
     identifier = str(prospectiveEmployer.identifier)
     doc = docx.Document(f"{settings.STATIC_ROOT}/doc/resume-template.docx")
+    date = datetime.datetime.now()
+    resumesuffix = f'{date.strftime("%Y-%m-%d")}-{random.randint(69,100)}'
     selectedStyle = None
     for style in doc.styles:
         if "Hyperlink2" in str(style):
@@ -123,7 +126,7 @@ def tagResume(request):
     new_run.style="Hyperlink"
     link.append(new_run._element)
     paragraph._p.append(link)
-    outputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{identifier}.docx"
+    outputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{resumesuffix}.docx"
     doc.save(outputPath)
     return FileResponse(open(outputPath, 'rb'), as_attachment=True, filename=f'eleanor-cassady-{identifier}.docx')
     
