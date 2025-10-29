@@ -138,7 +138,7 @@ def tagResume(request):
     paragraph._p.append(link)
    
     doc.save(docxOutputPath)
-    docx2pff.convert(docxOutputPath,pdfOutputPath)
+    docx2pf.convert(docxOutputPath,pdfOutputPath)
     savedDocxPath = pathlib.Path(docxOutputPath)
     if savedDocxPath.exists():
         savedDocxPath.unlink()
