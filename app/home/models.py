@@ -5,6 +5,9 @@ import random
 import pymupdf
 from xyz import settings
 import datetime
+import logging
+
+logger = logging.Logger(__name__)
 
 
 # Create your models here.
