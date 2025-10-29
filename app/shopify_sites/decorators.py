@@ -8,6 +8,8 @@ from .models import ShopifySite
 
 def shop_login_required(fn):
     def wrapper(request, *args, **kwargs):
+        if request.GET.get("id_token") is not None: # add in authentication later
+            return fn(request, *args, **kwargs)
         if os.getenv("SHOPIFY_TOKEN") is not None:
             return fn(request, *args, **kwargs)
         elif not hasattr(request, 'session') or 'shopify' not in request.session:
