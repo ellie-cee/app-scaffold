@@ -32,5 +32,7 @@ class ApplicationVariant(models.Model):
     id = models.BigAutoField(primary_key=True)
     identifier = models.UUIDField(default=uuid.uuid4)
     name = models.CharField(max_length=255)
+    purged = models.BooleanField(default=False)
+    fileName = models.CharField(max_length=255,default="")
     
     

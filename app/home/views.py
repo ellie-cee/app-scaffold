@@ -20,7 +20,9 @@ from docx.text.hyperlink import Hyperlink
 from django.http import FileResponse
 import datetime
 import random
+import docx2pff
 logger = logging.Logger(__name__)
+import pathlib
 
 
 # Create your views here.
@@ -104,11 +106,19 @@ def showTagForm(request):
 @csrf_exempt
 
 def tagResume(request):
-    prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
-    identifier = str(prospectiveEmployer.identifier)
-    doc = docx.Document(f"{settings.STATIC_ROOT}/doc/resume-template.docx")
     date = datetime.datetime.now()
     resumesuffix = f'{date.strftime("%Y-%m-%d")}-{random.randint(69,100)}'
+    docxOutputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{resumesuffix}.docx"
+    pdfOutputPath = docxOutputPath.replace("docx","pdf")
+    
+    prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
+    if created:
+        prospectiveEmployer.purged = False
+        prospectiveEmployer.fileName = pdfOutputPath
+        prospectiveEmployer.save()
+    identifier = str(prospectiveEmployer.identifier)
+    doc = docx.Document(f"{settings.STATIC_ROOT}/doc/resume-template.docx")
+    
     selectedStyle = None
     for style in doc.styles:
         if "Hyperlink2" in str(style):
@@ -126,9 +136,15 @@ def tagResume(request):
     new_run.style="Hyperlink"
     link.append(new_run._element)
     paragraph._p.append(link)
-    outputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{resumesuffix}.docx"
-    doc.save(outputPath)
-    return FileResponse(open(outputPath, 'rb'), as_attachment=True, filename=f'eleanor-cassady-{identifier}.docx')
+   
+    doc.save(docxOutputPath)
+    docx2pff.convert(docxOutputPath,pdfOutputPath)
+    savedDocxPath = pathlib.Path(docxOutputPath)
+    if savedDocxPath.exists():
+        savedDocxPath.unlink()
+    
+    return FileResponse(open(pdfOutputPath, 'rb'), as_attachment=True, filename=f'eleanor-cassady-{resumesuffix}.pdf')
+    
     
     
     
