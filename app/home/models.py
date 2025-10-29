@@ -53,7 +53,7 @@ class ApplicationVariant(models.Model):
         )
         self.filePath = outputFile
         self.save()
-        
+
         document = pymupdf.open(
             inputFile = os.path.join(
                 settings.FILES_ROOT,
@@ -65,7 +65,7 @@ class ApplicationVariant(models.Model):
             for link in page.get_links():
                 
                 if os.environ.get("SHOPIFY_DOMAIN") in link.get("uri"):
-                    link["uri"] = link
+                    link["uri"] = f"https://{os.environ.get('SHOPIFY_DOMAIN')}/?srcId={self.identifier}"
                     page.update_link(link)
         document.save(outputFile)
         return outputFile,outputFileName
