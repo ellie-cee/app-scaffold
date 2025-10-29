@@ -47,8 +47,10 @@ class ApplicationVariant(models.Model):
     id = models.BigAutoField(primary_key=True)
     identifier = models.UUIDField(default=uuid.uuid4)
     name = models.CharField(max_length=255)
+    details = models.TextField(default="")
     purged = models.BooleanField(default=False)
     filePath = models.CharField(max_length=255,default="")
+    active = models.BooleanField(default=True)
     
     def process(self,variant):
 

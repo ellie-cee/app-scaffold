@@ -115,6 +115,7 @@ def tagResume(request):
     if created:
         applicationVariant.purged = False
         applicationVariant.fileName = ""
+        applicationVariant.details = request.POST.get("details")
         
     taggedPdfPath,fileName = applicationVariant.process(request.POST.get("variant"))
     return FileResponse(
