@@ -36,7 +36,7 @@ def dashboard(request):
         {}
     )
 def homePage(request):
-    if hasattr(request, 'session') and 'shopify' in request.session:
+    if request.GET.get("embedded") is not None and request.GET.get("id_token") is not None:
         return render(
             request,
             "shopify/index.html",
