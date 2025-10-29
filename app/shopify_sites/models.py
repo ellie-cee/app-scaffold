@@ -5,7 +5,9 @@ from .graphql import GraphQL
 import shopify
 import sys
 import hmac,hashlib
+import logging
 # Create your models here.
+logger = logging.Logger(__name__)
 
 class ShopifySite(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -28,13 +30,11 @@ class ShopifySite(models.Model):
         if signature is None:
             return False
         secret = os.environ.get("SHOPIFY_API_SECRET")
-        print(secret)
-        print(signature)
         line = ''.join([
             '%s=%s' % (key, value)
             for key, value in sorted(params.items())
         ])
-        print(line)
+        
         h = hmac.new(secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
         print(h.hexdigest())
         if hmac.compare_digest(h.hexdigest(), signature) == False:

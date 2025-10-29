@@ -59,7 +59,14 @@ class ApplicationVariant(models.Model):
         )
         self.filePath = outputFile
         self.save()
-
+        logger.error(
+            os.path.join(
+                settings.FILES_ROOT,
+                "docs",
+                f"resume-template-{variant}.pdf"
+            )
+        )
+        logger.error(variant)
         document = pymupdf.open(
             os.path.join(
                 settings.FILES_ROOT,
