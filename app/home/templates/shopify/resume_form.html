@@ -12,7 +12,7 @@
             <div class="formField">
                 <label>Resume Variant</label>
                 <select name="variant" required>
-                    <option>Select Variant</option>
+                    <option value="">Select Variant</option>
                     {% for variant in variants %}
                         <option value="{{ variant.type }}">{{ variant.label }}</option>
                     {% endfor %}
