@@ -36,11 +36,18 @@ def dashboard(request):
         {}
     )
 def homePage(request):
-    return render(
-        request,
-        "index.html",
-        {}
-    )
+    if hasattr(request, 'session') and 'shopify' in request.session:
+        return render(
+            request,
+            "shopify/index.html",
+            {}
+        )
+    else:
+        return render(
+            request,
+            "index.html",
+            {}
+        )
 def logJson(payload):
     logger.error(
         json.dumps(payload,indent=1)
