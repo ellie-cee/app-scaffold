@@ -119,7 +119,7 @@ def tagResume(request):
     new_run = docx.text.run.Run(
         docx.oxml.shared.OxmlElement('w:r'), paragraph
     )
-    new_run.text = "https://abc.elliecee.xyz/butts"
+    new_run.text = "https://abc.elliecee.xyz/"
     new_run.style="Hyperlink"
     link.append(new_run._element)
     paragraph._p.append(link)
