@@ -6,6 +6,7 @@ import pymupdf
 from xyz import settings
 import datetime
 import logging
+from slugify import slugify
 
 logger = logging.Logger(__name__)
 
@@ -51,7 +52,7 @@ class ApplicationVariant(models.Model):
     
     def process(self,variant):
 
-        outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{random.randint(69,696969)}"
+        outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{slugify(self.name)}"
         outputFileName = f"eleanor-cassady-{outputFileSuffix}.pdf"
         
         
