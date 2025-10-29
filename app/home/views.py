@@ -32,6 +32,12 @@ def dashboard(request):
     print(request.session.get("dewqdewq"))
     return render(
         request,
+        "shopify/index.html",
+        {}
+    )
+def homePage(request):
+    return render(
+        request,
         "index.html",
         {}
     )
@@ -51,10 +57,11 @@ def getJsonPayload(request):
 
 def install(request):
     shopifySite,created = ShopifySite.objects.get_or_create(shopDomain=request.session["shopify"].get("shop_url"))
-    shopifySite.accessToken = request.session["shopify"].get("access_token")
-    details = shopifySite.shopDetails()
-    shopifySite.save()
-    return redirect("/")
+    if created:
+        shopifySite.accessToken = request.session["shopify"].get("access_token")
+        details = shopifySite.shopDetails()
+        shopifySite.save()
+    return redirect("/shopify/home")
 
 def testFake(request):
     
@@ -82,7 +89,7 @@ def testEmail(request):
 def showTagForm(request):
     return render(
         request,
-        "resume_form.html"
+        "shopify/resume_form.html"
     )
 
 

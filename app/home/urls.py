@@ -4,12 +4,14 @@ import shopify_proxy.views as pviews
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard),
+    path('', views.homePage),
     path('install',views.install),
     path("testemail",views.testEmail),
     path("contact/send",pviews.sendContact),
     path("contact",pviews.contactForm),
     path("analytics",views.viewed),
     path("resume",views.showTagForm),
-    path("resume/tag",views.tagResume)
+    path("resume/tag",views.tagResume),
+    path("shopify",views.dashboard),
+    
 ]
