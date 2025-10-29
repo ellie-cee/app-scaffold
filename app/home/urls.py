@@ -10,8 +10,8 @@ urlpatterns = [
     path("contact/send",pviews.sendContact),
     path("contact",pviews.contactForm),
     path("analytics",views.viewed),
-    path("resume",views.showTagForm),
-    path("resume/tag",views.tagResume),
+    path("shopify/resume",views.showTagForm),
+    path("shopify/resume/tag",views.tagResume),
     path("shopify",views.dashboard),
     
 ]
