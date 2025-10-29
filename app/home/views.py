@@ -20,7 +20,7 @@ from docx.text.hyperlink import Hyperlink
 from django.http import FileResponse
 import datetime
 import random
-import docx2pff
+import docx2pdf
 logger = logging.Logger(__name__)
 import pathlib
 
