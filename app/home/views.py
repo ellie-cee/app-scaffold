@@ -20,9 +20,9 @@ from docx.text.hyperlink import Hyperlink
 from django.http import FileResponse
 import datetime
 import random
-import docx2pdf
 logger = logging.Logger(__name__)
 import pathlib
+import pymupdf
 
 
 # Create your views here.
@@ -106,44 +106,20 @@ def showTagForm(request):
 @csrf_exempt
 
 def tagResume(request):
-    date = datetime.datetime.now()
-    resumesuffix = f'{date.strftime("%Y-%m-%d")}-{random.randint(69,100)}'
-    docxOutputPath = f"{settings.STATIC_ROOT}/doc/eleanor-cassady-{resumesuffix}.docx"
-    pdfOutputPath = docxOutputPath.replace("docx","pdf")
     
-    prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
+    
+    applicationVariant,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
     if created:
-        prospectiveEmployer.purged = False
-        prospectiveEmployer.fileName = pdfOutputPath
-        prospectiveEmployer.save()
-    identifier = str(prospectiveEmployer.identifier)
-    doc = docx.Document(f"{settings.STATIC_ROOT}/doc/resume-template.docx")
-    
-    selectedStyle = None
-    for style in doc.styles:
-        if "Hyperlink2" in str(style):
-            selectedStyle = style
-            break
-    paragraph = doc.add_paragraph(style=selectedStyle)
-    part = paragraph.part
-    r_id = part.relate_to(f"https://abc.elliecee.xyz/?srcId={identifier}", docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
-    link = docx.oxml.shared.OxmlElement('w:hyperlink')
-    link.set(docx.oxml.shared.qn('r:id'), r_id, )
-    new_run = docx.text.run.Run(
-        docx.oxml.shared.OxmlElement('w:r'), paragraph
+        applicationVariant.purged = False
+        applicationVariant.fileName = ""
+        applicationVariant.save()
+        
+    taggedPdfPath,fileName = applicationVariant.process()
+    return FileResponse(
+        open(taggedPdfPath, 'rb'),
+        as_attachment=True,
+        filename=fileName
     )
-    new_run.text = "https://abc.elliecee.xyz/"
-    new_run.style="Hyperlink"
-    link.append(new_run._element)
-    paragraph._p.append(link)
-   
-    doc.save(docxOutputPath)
-    docx2pdf.convert(docxOutputPath,pdfOutputPath)
-    savedDocxPath = pathlib.Path(docxOutputPath)
-    if savedDocxPath.exists():
-        savedDocxPath.unlink()
-    
-    return FileResponse(open(pdfOutputPath, 'rb'), as_attachment=True, filename=f'eleanor-cassady-{resumesuffix}.pdf')
     
     
     

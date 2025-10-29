@@ -1,5 +1,10 @@
 import uuid
 from django.db import models
+import os
+import random
+import pymupdf
+from xyz import settings
+import datetime
 
 
 # Create your models here.
@@ -33,6 +38,36 @@ class ApplicationVariant(models.Model):
     identifier = models.UUIDField(default=uuid.uuid4)
     name = models.CharField(max_length=255)
     purged = models.BooleanField(default=False)
-    fileName = models.CharField(max_length=255,default="")
+    filePath = models.CharField(max_length=255,default="")
+    
+    def process(self):
+
+        outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{random.randint(69,696969)}"
+        outputFileName = f"eleanor-cassady-{outputFileSuffix}.pdf"
+        
+        
+        outputFile = inputFile = os.path.join(
+            settings.FILES_ROOT,
+            "ephemeral",
+            outputFileName
+        )
+        self.filePath = outputFile
+        self.save()
+        
+        document = pymupdf.open(
+            inputFile = os.path.join(
+                settings.FILES_ROOT,
+                "doc",
+                "resume-template.pdf"
+            )
+        )
+        for page in document:
+            for link in page.get_links():
+                
+                if os.environ.get("SHOPIFY_DOMAIN") in link.get("uri"):
+                    link["uri"] = link
+                    page.update_link(link)
+        document.save(outputFile)
+        return outputFile,outputFileName
     
     
