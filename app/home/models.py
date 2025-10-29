@@ -55,7 +55,7 @@ class ApplicationVariant(models.Model):
         self.save()
 
         document = pymupdf.open(
-            inputFile = os.path.join(
+            os.path.join(
                 settings.FILES_ROOT,
                 "doc",
                 "resume-template.pdf"
