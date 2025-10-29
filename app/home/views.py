@@ -136,6 +136,7 @@ def tagResume(request):
 def viewed(request):
     
     payload = getJsonPayload(request)
+    
     sourceId = payload.get("srcId")
     details = None
     context = {
@@ -152,7 +153,7 @@ def viewed(request):
     
     result:EmailStatus = sendEmail(
         recipient="cassadyeleanor@gmail.com",
-        subject="Site View",
+        subject=f"Site View from {context.get("lead")}",
         context=context,
         sender="ellie@elliecee.xyz",
         templatePrefix="siteClick"
