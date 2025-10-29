@@ -25,3 +25,14 @@ def shop_login_required(fn):
         return fn(request, *args, **kwargs)
     wrapper.__name__ = fn.__name__
     return wrapper
+
+def admin_embedded(fn):
+    def wrapper(request, *args, **kwargs):
+        if request.GET.get("id_token") is not None: # add in authentication later
+            return fn(request, *args, **kwargs)
+        request.session['return_to'] = request.get_full_path()
+        return views.authenticate(request)
+        
+        return fn(request, *args, **kwargs)
+    wrapper.__name__ = fn.__name__
+    return wrapper

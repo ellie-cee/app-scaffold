@@ -101,7 +101,7 @@ def showTagForm(request):
 
 
 @csrf_exempt
-@shop_login_required
+
 def tagResume(request):
     prospectiveEmployer,created = ApplicationVariant.objects.get_or_create(name=request.POST.get("name"))
     identifier = str(prospectiveEmployer.identifier)
