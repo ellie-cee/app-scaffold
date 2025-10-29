@@ -32,7 +32,13 @@ class SiteNav(models.Model,IdAware):
     
     class Meta:
         db_table="sitenav"
-        
+class ResumeVariant(models.Model):
+    type = models.CharField(max_length=255,default="")       
+    label = models.CharField(max_length=255,default="")
+
+    class Meta:
+        db_table = "resumeVariants"
+
 class ApplicationVariant(models.Model):
     id = models.BigAutoField(primary_key=True)
     identifier = models.UUIDField(default=uuid.uuid4)
@@ -40,7 +46,7 @@ class ApplicationVariant(models.Model):
     purged = models.BooleanField(default=False)
     filePath = models.CharField(max_length=255,default="")
     
-    def process(self):
+    def process(self,variant):
 
         outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{random.randint(69,696969)}"
         outputFileName = f"eleanor-cassady-{outputFileSuffix}.pdf"
@@ -58,7 +64,7 @@ class ApplicationVariant(models.Model):
             os.path.join(
                 settings.FILES_ROOT,
                 "docs",
-                "resume-template.pdf"
+                f"resume-template-{variant}.pdf"
             )
         )
         for page in document:

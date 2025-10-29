@@ -277,7 +277,8 @@ DJANGO_Q_AVAILABLE = False
 Q_CLUSTER = {
     'name': 'DJRedis',
     'workers': 4,
-    'timeout': 90,
+    'timeout': 60,
+    'retry':90,
     'django_redis': 'default',
     'catchup':True,
 }

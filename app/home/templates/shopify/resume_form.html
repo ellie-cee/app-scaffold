@@ -9,6 +9,13 @@
                 <label>Employer Name</label>
                 <input type="text" name="name" placeholder="..." required>
             </div>
+            <div class="formField">
+                <label>Resume Variant</label>
+                <select name="variant" required>
+                    {% for variant in variants %}
+                        <option value="{{ variant.type }}">{{ variant.label }}</option>
+                    {% endfor %}
+                </select>
         </div>
     </div>
     <div class="formfooter">

@@ -14,7 +14,7 @@ from appointment.models import Appointment,StaffMember,AppointmentRequest
 from django.views.decorators.csrf import csrf_exempt
 from xyz import settings
 from shopify_sites.decorators import shop_login_required
-from .models import ApplicationVariant
+from .models import ApplicationVariant,ResumeVariant
 import docx
 from docx.text.hyperlink import Hyperlink
 from django.http import FileResponse
@@ -99,7 +99,10 @@ def testEmail(request):
 def showTagForm(request):
     return render(
         request,
-        "shopify/resume_form.html"
+        "shopify/resume_form.html",
+        {
+            "variants":ResumeVariant.objects.all()
+        }
     )
 
 
@@ -113,7 +116,7 @@ def tagResume(request):
         applicationVariant.purged = False
         applicationVariant.fileName = ""
         
-    taggedPdfPath,fileName = applicationVariant.process()
+    taggedPdfPath,fileName = applicationVariant.process(request.POST.get("variant"))
     return FileResponse(
         open(taggedPdfPath, 'rb'),
         as_attachment=True,
