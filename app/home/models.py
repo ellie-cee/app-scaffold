@@ -45,7 +45,7 @@ class ResumeVariant(models.Model):
 
 class ApplicationVariant(models.Model):
     id = models.BigAutoField(primary_key=True)
-    identifier = models.UUIDField(default=uuid.uuid4)
+    identifier = models.Charfield(default="")
     name = models.CharField(max_length=255)
     details = models.TextField(default="")
     purged = models.BooleanField(default=False)
@@ -53,8 +53,9 @@ class ApplicationVariant(models.Model):
     active = models.BooleanField(default=True)
     
     def process(self,variant):
-
-        outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{slugify(self.name)}"
+        employerTag = slugify(self.name)
+        self.identifier = employerTag
+        outputFileSuffix = f"{datetime.datetime.now().strftime("%Y-%m-%d")}-{employerTag}"
         outputFileName = f"eleanor-cassady-{outputFileSuffix}.pdf"
         
         
@@ -84,7 +85,7 @@ class ApplicationVariant(models.Model):
             for link in page.get_links():
                 
                 if os.environ.get("SHOPIFY_DOMAIN") in link.get("uri"):
-                    link["uri"] = f"https://{os.environ.get('SHOPIFY_DOMAIN')}/?srcId={self.identifier}"
+                    link["uri"] = f"https://{os.environ.get('SHOPIFY_DOMAIN')}/?createdFor={self.identifier}"
                     page.update_link(link)
         document.save(outputFile)
         return outputFile,outputFileName

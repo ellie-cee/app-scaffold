@@ -135,7 +135,7 @@ def viewed(request):
     
     payload = getJsonPayload(request)
     
-    sourceId = payload.get("srcId")
+    sourceId = payload.get("createdFor")
     details = None
     context = {
         "sourceId":sourceId,
