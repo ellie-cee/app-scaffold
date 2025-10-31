@@ -85,7 +85,7 @@ class ApplicationVariant(models.Model):
             for link in page.get_links():
                 
                 if os.environ.get("SHOPIFY_DOMAIN") in link.get("uri"):
-                    link["uri"] = f"https://{os.environ.get('SHOPIFY_DOMAIN')}/?createdFor={self.identifier}"
+                    link["uri"] = f"https://{os.environ.get('SHOPIFY_DOMAIN')}/?inquirer={self.identifier}"
                     page.update_link(link)
         document.save(outputFile)
         return outputFile,outputFileName
