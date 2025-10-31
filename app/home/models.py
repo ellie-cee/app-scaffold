@@ -45,7 +45,7 @@ class ResumeVariant(models.Model):
 
 class ApplicationVariant(models.Model):
     id = models.BigAutoField(primary_key=True)
-    identifier = models.Charfield(default="")
+    identifier = models.CharField(default="",max_length=255)
     name = models.CharField(max_length=255)
     details = models.TextField(default="")
     purged = models.BooleanField(default=False)
